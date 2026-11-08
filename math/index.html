@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#f4f6fb">
+  <meta name="description" content="Friendly lessons, interactive practice, and a final review for linear equations.">
+  <title>Math Test Prep | Linear Equations</title>
+  <link rel="stylesheet" href="/math/styles.css">
+  <script src="/math/app.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to lessons</a>
+  <header class="topbar">
+    <a class="math-brand" href="/" aria-label="Hot Red Cory home"><span class="brand-icon" aria-hidden="true">∑</span><span>Math Test Prep</span></a>
+    <nav class="top-links" aria-label="Main navigation"><a href="/">Home</a><a href="/Retro_Corner_V0.97.html">Retro Gaming</a></nav>
+  </header>
+  <main class="layout" id="main">
+    <aside class="sidebar" aria-label="Study navigation">
+      <div class="progress-card">
+        <div class="progress-heading"><span>YOUR PROGRESS</span><span id="progressPercent">0%</span></div>
+        <div class="progress-track" role="progressbar" aria-label="Topics practiced" aria-valuemin="0" aria-valuemax="9" aria-valuenow="0" id="topicProgress"><span id="progressFill"></span></div>
+        <p id="progressLabel">0 of 9 topic skills practiced</p>
+        <div class="score-line"><span>Practice score</span><strong id="scoreLabel">0 / 0</strong></div>
+      </div>
+      <nav class="lesson-nav" aria-label="Lessons">
+        <p class="nav-label">LESSONS</p>
+        <a href="#lesson-slope"><span>01</span> Slope &amp; rate</a>
+        <a href="#lesson-forms"><span>02</span> Equation forms</a>
+        <a href="#lesson-graph"><span>03</span> Graphs &amp; intercepts</a>
+        <a href="#lesson-domain"><span>04</span> Domain &amp; range</a>
+        <a href="#lesson-lines"><span>05</span> Parallel &amp; perpendicular</a>
+        <a href="#lesson-model"><span>06</span> Models &amp; inequalities</a>
+        <a class="nav-practice" href="#practice">Interactive practice <span aria-hidden="true">→</span></a>
+        <a class="nav-test" href="#final-test">Final practice test <span aria-hidden="true">→</span></a>
+      </nav>
+      <div class="formula-card"><span class="formula-label">THE BIG IDEA</span><strong>y = mx + b</strong><p><b>m</b> tells the rate of change.<br><b>b</b> is where the line crosses the y-axis.</p></div>
+    </aside>
+    <div class="content">
+      <section class="welcome">
+        <p class="eyebrow">UNIT 3 · LINEAR EQUATIONS</p>
+        <h1>Let’s make lines<br><span>make sense.</span></h1>
+        <p>Learn one idea at a time, try it right away, then check what you know with a full practice test.</p>
+        <a class="primary-button" href="#lesson-slope">Start with slope <span aria-hidden="true">↓</span></a>
+        <div class="welcome-stats"><span><b>6</b> short lessons</span><i aria-hidden="true"></i><span><b>9</b> practice skills</span><i aria-hidden="true"></i><span><b>16</b> test questions</span></div>
+      </section>
+      <section class="concept-strip" aria-label="Linear equation summary"><div class="concept-icon" aria-hidden="true">↗</div><div><strong>A linear equation makes a straight line.</strong><p>Its slope describes how y changes when x changes. Its intercept tells you where the line starts.</p></div><span class="equation-chip">y = mx + b</span></section>
+
+      <section class="lesson" id="lesson-slope">
+        <div class="lesson-kicker"><span>LESSON 01</span><span>THE RATE</span></div>
+        <h2>Slope: how steep, and which way?</h2>
+        <p class="lesson-lead">Slope measures the change in y for each change in x. Think “rise over run.”</p>
+        <div class="two-col">
+          <article class="mini-card"><h3>Slope-intercept form</h3><div class="formula-box">y = mx + b</div><p><b>m</b> is the slope. <b>b</b> is the y-intercept, the y-value when x = 0.</p><div class="worked"><span class="worked-label">WORKED EXAMPLE</span><p>For <b>y = 2x + 3</b>, the slope is <b>2</b> and the y-intercept is <b>(0, 3)</b>. From that point, go up 2 and right 1.</p></div></article>
+          <article class="mini-card"><h3>From two points</h3><div class="formula-box">m = (y₂ − y₁) ÷ (x₂ − x₁)</div><p>Subtract the y-values in the same order as the x-values. Never divide by zero.</p><div class="worked"><span class="worked-label">WORKED EXAMPLE</span><p>Points (1, 2) and (4, 8): <b>m = (8 − 2) ÷ (4 − 1) = 6 ÷ 3 = 2</b>.</p></div></article>
+        </div>
+        <article class="wide-card">
+          <div><h3>From a table or graph</h3><p>Pick two rows or two clear points, then use the same rise-over-run formula. A graph’s slope is not how high the line is; it is how much it changes as you move right.</p><div class="worked"><span class="worked-label">TABLE EXAMPLE</span><p>If x goes from 0 to 2 while y goes from 5 to 1, then <b>m = (1 − 5) ÷ (2 − 0) = −2</b>.</p></div></div>
+          <div class="slope-types"><div><span class="type-line positive"></span><b>Positive</b><small>rises to the right</small></div><div><span class="type-line negative"></span><b>Negative</b><small>falls to the right</small></div><div><span class="type-line zero"></span><b>Zero</b><small>horizontal line</small></div><div><span class="type-line undefined"></span><b>Undefined</b><small>vertical line</small></div></div>
+        </article>
+        <button class="text-button" data-practice="slope">Practice slope <span aria-hidden="true">→</span></button>
+      </section>
+
+      <section class="lesson" id="lesson-forms">
+        <div class="lesson-kicker"><span>LESSON 02</span><span>THE EQUATION</span></div>
+        <h2>Rewrite an equation to see its slope</h2>
+        <p class="lesson-lead">Put y by itself to turn standard form into slope-intercept form. Point-slope form is useful when you know a point and a slope.</p>
+        <div class="two-col">
+          <article class="mini-card"><h3>Rearrange into y = mx + b</h3><div class="formula-box">Ax + By = C</div><ol class="steps"><li>Move the x-term to the other side.</li><li>Divide every term by the coefficient of y.</li><li>Read the slope and y-intercept.</li></ol><div class="worked"><span class="worked-label">WORKED EXAMPLE</span><p><b>2x + 3y = 12</b><br>3y = −2x + 12<br><b>y = −⅔x + 4</b></p><p class="muted">The slope is −⅔ and the y-intercept is (0, 4).</p></div></article>
+          <article class="mini-card"><h3>Point-slope form</h3><div class="formula-box">y − y₁ = m(x − x₁)</div><p>Use the slope <b>m</b> and a known point <b>(x₁, y₁)</b>. Keep each coordinate’s sign inside its parentheses.</p><div class="worked"><span class="worked-label">WORKED EXAMPLE</span><p>Slope 3 through (2, 5):<br><b>y − 5 = 3(x − 2)</b></p><p class="muted">To find slope-intercept form, distribute and solve for y.</p></div></article>
+        </div>
+        <button class="text-button" data-practice="forms">Practice equation forms <span aria-hidden="true">→</span></button>
+      </section>
+
+      <section class="lesson" id="lesson-graph">
+        <div class="lesson-kicker"><span>LESSON 03</span><span>THE PICTURE</span></div>
+        <h2>Graph a line and find its intercepts</h2>
+        <p class="lesson-lead">Start at the y-intercept. Use slope as rise over run to find another point, then draw the straight line through them.</p>
+        <div class="two-col">
+          <article class="mini-card"><h3>Plot y = mx + b</h3><ol class="steps"><li>Plot <b>(0, b)</b> on the y-axis.</li><li>Write slope as a fraction: rise ÷ run.</li><li>Move from the first point and plot again.</li><li>Draw a straight line through the points.</li></ol><div class="worked"><span class="worked-label">WORKED EXAMPLE</span><p>For <b>y = −½x + 2</b>, plot (0, 2), then go down 1 and right 2 to (2, 1).</p></div></article>
+          <article class="mini-card"><h3>Find both intercepts</h3><p>The <b>y-intercept</b> is where the line crosses the y-axis, so set x = 0. The <b>x-intercept</b> is where it crosses the x-axis, so set y = 0 and solve.</p><div class="worked"><span class="worked-label">WORKED EXAMPLE</span><p>For <b>y = 2x + 6</b>: y-intercept is <b>(0, 6)</b>. Set y = 0: 0 = 2x + 6, so x = −3 and the x-intercept is <b>(−3, 0)</b>.</p></div></article>
+        </div>
+        <div class="graph-card">
+          <div class="graph-copy"><span class="worked-label">TRY THE GRAPH</span><h3>Change m or b and watch the line move.</h3><p>The grid shows points from −5 to 5. The equation updates as you change the controls.</p><div class="graph-controls"><label for="graphSlope">Slope, m <input id="graphSlope" type="number" value="1" min="-5" max="5" step="0.5"></label><label for="graphIntercept">Intercept, b <input id="graphIntercept" type="number" value="0" min="-5" max="5" step="0.5"></label><strong id="graphEquation">y = x</strong></div></div>
+          <div class="graph-frame"><svg id="linearGraph" viewBox="0 0 360 300" role="img" aria-label="Coordinate graph showing a straight line"></svg></div>
+        </div>
+        <button class="text-button" data-practice="graphing">Practice graphing <span aria-hidden="true">→</span></button>
+      </section>
+
+      <section class="lesson" id="lesson-domain">
+        <div class="lesson-kicker"><span>LESSON 04</span><span>INPUTS &amp; OUTPUTS</span></div>
+        <h2>Domain and range</h2>
+        <p class="lesson-lead">The <b>domain</b> is the set of allowed x-values. The <b>range</b> is the set of y-values the relation can produce.</p>
+        <div class="two-col">
+          <article class="mini-card"><h3>For a line</h3><p>A non-vertical line keeps going left and right, so its domain is all real numbers. If it is not horizontal, it also reaches every y-value, so its range is all real numbers.</p><div class="formula-box small-formula">Domain → x-values<br>Range → y-values</div></article>
+          <article class="mini-card"><h3>In a real situation</h3><p>Context can limit the answers. If x counts tickets, negative x-values do not make sense. Check whether the question asks for whole-number inputs or only a certain time period.</p><div class="worked"><span class="worked-label">WORKED EXAMPLE</span><p>A 0–10 hour rental has domain <b>0 ≤ h ≤ 10</b>. If cost is C = 4h + 8, the range is <b>8 ≤ C ≤ 48</b>.</p></div></article>
+        </div>
+        <button class="text-button" data-practice="domain-range">Practice domain &amp; range <span aria-hidden="true">→</span></button>
+      </section>
+
+      <section class="lesson" id="lesson-lines">
+        <div class="lesson-kicker"><span>LESSON 05</span><span>COMPARE LINES</span></div>
+        <h2>Parallel and perpendicular lines</h2>
+        <div class="two-col">
+          <article class="mini-card"><div class="relation-icon parallel-icon" aria-hidden="true">∥</div><h3>Parallel: same slope</h3><p>Parallel lines rise or fall at the same rate. They have equal slopes and different intercepts, so they never meet.</p><div class="worked"><span class="worked-label">WORKED EXAMPLE</span><p>A line with slope ⅔ is parallel to any line with slope <b>⅔</b>.</p></div></article>
+          <article class="mini-card"><div class="relation-icon perp-icon" aria-hidden="true">⟂</div><h3>Perpendicular: negative reciprocals</h3><p>Flip the fraction and change its sign. The slopes multiply to −1, and the lines meet at a right angle.</p><div class="worked"><span class="worked-label">WORKED EXAMPLE</span><p>If one slope is ¾, the perpendicular slope is <b>−⁴⁄₃</b>.</p></div></article>
+        </div>
+        <button class="text-button" data-practice="parallel-perpendicular">Practice line relationships <span aria-hidden="true">→</span></button>
+      </section>
+
+      <section class="lesson" id="lesson-model">
+        <div class="lesson-kicker"><span>LESSON 06</span><span>USE THE MATH</span></div>
+        <h2>Model a story. Read an inequality.</h2>
+        <div class="two-col">
+          <article class="mini-card"><h3>Linear word problems</h3><p>Look for a starting amount and a rate that repeats. Let x be the number of steps or items. Let y be the total.</p><div class="worked"><span class="worked-label">WORKED EXAMPLE</span><p>A ride card starts with $5 and adds $2 per ride. Total balance used is <b>y = 2x + 5</b>. The slope is $2 per ride; the starting amount is $5.</p></div></article>
+          <article class="mini-card"><h3>Inequality symbols</h3><div class="symbol-list"><p><b>&lt;</b> less than <span>open / dashed boundary</span></p><p><b>≤</b> less than or equal <span>closed / solid boundary</span></p><p><b>&gt;</b> greater than <span>open / dashed boundary</span></p><p><b>≥</b> greater than or equal <span>closed / solid boundary</span></p></div><p>For y &gt; mx + b, shade above the boundary line. For y &lt; mx + b, shade below it.</p></article>
+        </div>
+        <button class="text-button" data-practice="modeling">Practice models <span aria-hidden="true">→</span></button>
+        <button class="text-button secondary-practice" data-practice="inequalities">Practice inequalities <span aria-hidden="true">→</span></button>
+      </section>
+
+      <section class="practice-section" id="practice">
+        <div class="section-heading"><div><p class="eyebrow">YOUR TURN</p><h2>Interactive practice</h2><p>Choose an answer to get immediate feedback. Miss one? Review the steps and try a new version of the same skill.</p></div><div class="practice-badge" aria-hidden="true">✎</div></div>
+        <div class="practice-panel">
+          <div class="practice-toolbar"><label for="practiceSkill">Practice skill<select id="practiceSkill"><option value="mixed">Mixed review</option><option value="slope">Slope &amp; rate</option><option value="forms">Equation forms</option><option value="graphing">Graphing</option><option value="intercepts">Intercepts</option><option value="domain-range">Domain &amp; range</option><option value="point-slope">Point-slope form</option><option value="parallel-perpendicular">Parallel &amp; perpendicular</option><option value="modeling">Word problems</option><option value="inequalities">Inequalities</option></select></label><button class="quiet-button" id="newQuestion">New question</button></div>
+          <div class="question-meta"><span id="practiceTopic">MIXED REVIEW</span><span id="practiceModeHint">Pick one answer or type your own.</span></div>
+          <div class="answer-modes" role="group" aria-label="Answer format"><button type="button" id="chooseMode" aria-pressed="true">Choose an answer</button><button type="button" id="writeMode" aria-pressed="false">Type it yourself</button></div>
+          <div class="question-card"><p id="practicePrompt" class="question-prompt"></p><div id="practiceTableWrap"></div><div id="practiceGraphWrap" class="question-graph" hidden><svg id="practiceGraph" viewBox="0 0 300 230" role="img" aria-label="Graph for practice question"></svg></div><div id="choiceList" class="choice-list" role="group" aria-label="Answer choices"></div><form id="writtenForm" class="written-form" hidden><label for="writtenAnswer">Your answer</label><input id="writtenAnswer" autocomplete="off" inputmode="text" placeholder="Type your answer"><span class="input-help">For example: 2, −3/4, or y = 2x + 1</span></form></div>
+          <div class="practice-actions"><div><button class="quiet-button hint-button" id="hintButton">Show a hint</button><div id="hintText" class="hint-text" hidden></div></div><button class="primary-button check-button" id="checkPractice">Check answer</button></div>
+          <div id="practiceFeedback" class="feedback" aria-live="polite" hidden></div>
+          <div class="practice-actions next-actions"><span id="practiceAttempts" class="muted"></span><button class="quiet-button" id="similarQuestion" hidden>Try a similar question</button><button class="primary-button" id="nextQuestion" hidden>Next question <span aria-hidden="true">→</span></button></div>
+        </div>
+      </section>
+
+      <section class="test-section" id="final-test">
+        <div class="section-heading"><div><p class="eyebrow">READY TO REVIEW?</p><h2>Final practice test</h2><p>16 questions across all six lessons. Work through the full test, then review every answer and explanation.</p></div><div class="test-badge" aria-hidden="true">16</div></div>
+        <div id="testIntro" class="test-intro"><div><strong>Take your time.</strong><p>This is a practice test, so you can retake it after reviewing the results. Your score is saved on this device.</p></div><button class="primary-button" id="startTest">Start the test <span aria-hidden="true">→</span></button></div>
+        <div id="testRunner" class="test-runner" hidden><div class="test-progress-row"><span id="testCounter">Question 1 of 14</span><div class="test-track"><span id="testFill"></span></div></div><h3 id="testPrompt"></h3><div id="testChoices" class="choice-list" role="group" aria-label="Test answer choices"></div><form id="testWrittenForm" class="written-form" hidden><label for="testWrittenAnswer">Your answer</label><input id="testWrittenAnswer" autocomplete="off" inputmode="text" placeholder="Type your answer"></form><p id="testFeedback" class="test-feedback" aria-live="polite" hidden></p><div class="test-actions"><button class="quiet-button" id="testBack" disabled>Previous</button><button class="primary-button" id="testNext">Check answer</button></div></div>
+        <div id="testResults" class="test-results" hidden></div>
+      </section>
+      <footer class="page-footer"><a href="/">← Back to destination page</a><span>Your progress is saved only in this browser.</span></footer>
+    </div>
+  </main>
+</body>
+</html>

@@ -3,7 +3,7 @@
   "rewrites": [
     {
       "source": "/",
-      "destination": "/Retro_Corner_V0.97.html"
+      "destination": "/index.html"
     }
   ]
 }
