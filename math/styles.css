@@ -170,3 +170,95 @@ select,.written-form input{max-width:100%;min-width:210px;padding:9px 11px;borde
 @media(max-width:720px){.topbar{height:62px;padding:0 17px}.math-brand{font-size:.9rem}.brand-icon{width:33px;height:33px}.top-links{gap:13px;font-size:.75rem}.layout{display:block;width:calc(100% - 28px);margin:16px auto 40px}.sidebar{position:static}.progress-card{display:grid;grid-template-columns:1fr auto;gap:0 12px;padding:13px 15px}.progress-heading{grid-column:1/3}.progress-track{grid-column:1/3;margin-top:8px}.progress-card>p{margin:6px 0 9px}.score-line{grid-column:1/3;padding-top:8px}.lesson-nav{display:flex;flex-direction:row;gap:7px;margin:12px 0 18px;overflow:auto;padding:2px 1px 6px;scrollbar-width:thin}.nav-label{display:none}.lesson-nav>a{flex:none;gap:7px;padding:8px 10px;border:1px solid var(--line);background:#fff;font-size:.71rem;white-space:nowrap}.lesson-nav>a>span:first-child{width:auto}.lesson-nav .nav-practice,.lesson-nav .nav-test{margin-top:0}.formula-card{display:none}.welcome{padding:29px 21px 18px;border-radius:17px}.welcome:after{right:14px;top:17px;width:56px;height:56px;box-shadow:0 0 0 9px rgba(55,105,214,.035),0 0 0 18px rgba(55,105,214,.025)}.welcome h1{font-size:2.5rem}.welcome>p:not(.eyebrow){max-width:420px;font-size:.88rem}.welcome-stats{gap:8px;margin-top:18px;padding-top:14px;font-size:.63rem}.concept-strip{gap:10px;margin:12px 0 35px;padding:12px}.concept-icon{width:34px;height:34px}.concept-strip strong{font-size:.77rem}.concept-strip p{font-size:.67rem}.equation-chip{display:none}.lesson{margin-bottom:29px;padding-bottom:29px}.two-col{grid-template-columns:1fr;gap:10px}.mini-card{padding:16px}.wide-card{padding:16px}.slope-types{gap:6px}.slope-types>div{padding:8px 6px}.slope-types small{font-size:.61rem}.graph-card{padding:13px}.graph-copy{display:block}.graph-controls{flex-direction:row;align-items:center}.graph-controls label{font-size:.68rem}.graph-controls input{width:60px}.graph-controls strong{margin-left:auto}.practice-section,.test-section{margin:38px 0}.section-heading{align-items:flex-start}.section-heading p:not(.eyebrow){font-size:.8rem}.practice-badge,.test-badge{width:42px;height:42px;border-radius:13px;font-size:1.2rem}.practice-panel,.test-runner,.test-results{padding:14px}.practice-toolbar{align-items:flex-end}.practice-toolbar label{flex:1}.practice-toolbar select{width:100%;min-width:0}.quiet-button{font-size:.73rem}.question-card{padding:14px}.question-prompt{font-size:.94rem}.choice-list{grid-template-columns:1fr}.choice{min-height:43px}.practice-actions{align-items:center}.check-button{min-width:115px}.hint-text{max-width:220px}.test-intro{align-items:flex-start;flex-direction:column;padding:16px}.test-intro .primary-button{width:100%}.page-footer{flex-direction:column;gap:5px}}
 @media(max-width:380px){.layout{width:calc(100% - 22px)}.topbar{padding:0 11px}.top-links{gap:9px;font-size:.7rem}.welcome h1{font-size:2.15rem}.welcome-stats{gap:6px;font-size:.58rem}.welcome-stats i{width:3px;height:3px}.lesson-nav>a{padding:7px 8px;font-size:.67rem}.practice-toolbar{align-items:stretch;flex-direction:column}.practice-toolbar .quiet-button{align-self:flex-start}.question-meta{align-items:flex-start;flex-direction:column;gap:3px}.question-meta span+span{text-align:left}.practice-actions{align-items:flex-start}.graph-controls{gap:6px}.graph-controls label{gap:4px;font-size:.62rem}.graph-controls input{width:52px;padding:6px}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{transition:none!important}}
+
+/* Diagnostic pretest */
+.welcome-actions{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.welcome-secondary{padding:8px 4px;color:var(--blue);font-size:.84rem;font-weight:800;text-decoration:none}
+.welcome-secondary:hover{text-decoration:underline}
+.lesson-nav .nav-pretest{justify-content:space-between;margin-top:3px;background:#edf3ff;color:var(--blue)}
+.pretest-section{margin:40px 0 48px;scroll-margin-top:24px}
+.pretest-badge{display:grid;flex:none;place-items:center;width:52px;height:52px;border-radius:17px;background:#edf3ff;color:var(--blue);font-size:1.45rem;font-weight:900}
+.pretest-intro{display:flex;align-items:center;justify-content:space-between;gap:18px;padding:20px;border:1px solid #dce6fb;border-radius:15px;background:#f6f8ff}
+.pretest-intro strong{font-size:.91rem}
+.pretest-intro p{margin:4px 0 0;color:var(--muted);font-size:.81rem}
+.pretest-intro .primary-button{flex:none}
+.pretest-last-result{margin-top:10px!important;color:#315cb5!important;font-weight:750}
+.pretest-runner,.pretest-results{padding:21px;border:1px solid var(--line);border-radius:16px;background:#fff;box-shadow:var(--shadow)}
+.pretest-progress-row{display:flex;align-items:center;gap:15px;margin-bottom:13px;color:var(--muted);font-size:.76rem;font-weight:750}
+.pretest-progress-row .test-track{margin:0}
+.pretest-topic{margin:0 0 6px;color:var(--blue);font-size:.68rem;font-weight:850;letter-spacing:.08em;text-transform:uppercase}
+.pretest-runner h3{margin:0 0 15px;font-size:1.12rem;line-height:1.45}
+.pretest-actions{align-items:center}
+.pretest-nudge{margin:9px 0 0;color:#9a6a11;font-size:.77rem}
+.pretest-results .diagnostic-score{margin-bottom:20px}
+.diagnostic-list-heading{margin:0 0 12px;font-size:1rem}
+.diagnostic-list{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.diagnostic-card{padding:12px 13px;border:1px solid var(--line);border-left:3px solid #6bb495;border-radius:10px;background:#fff}
+.diagnostic-card.needs-review{border-left-color:#d39a3a;background:#fffdf7}
+.diagnostic-card-top{display:flex;align-items:flex-start;justify-content:space-between;gap:10px}
+.diagnostic-card-top strong{font-size:.8rem}
+.diagnostic-card-top span{color:var(--muted);font-size:.67rem;font-weight:750;text-align:right}
+.diagnostic-card p{margin:6px 0 9px;color:var(--muted);font-size:.73rem;line-height:1.45}
+.diagnostic-actions{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.diagnostic-link{color:var(--blue);font-size:.72rem;font-weight:800;text-decoration:none}
+.diagnostic-link:hover{text-decoration:underline}
+.diagnostic-actions .quiet-button{min-height:31px;padding:5px 9px;font-size:.69rem}
+.retake-pretest{margin-top:16px}
+
+/* Sticky note workspace */
+.layout{grid-template-columns:220px minmax(0,1fr) 258px;gap:28px;width:min(1480px,calc(100% - 48px))}
+.scratchpad-panel{position:sticky;top:84px;align-self:start;min-width:0}
+.scratch-note{position:relative;padding:17px 14px 12px;border:1px solid #e7d37a;border-radius:14px 14px 12px 12px;background:linear-gradient(160deg,#fff9c9 0%,#fff2a1 100%);box-shadow:0 10px 26px rgba(99,82,16,.12)}
+.scratch-note:before{position:absolute;top:-9px;left:50%;width:72px;height:20px;border:1px solid rgba(180,157,75,.18);background:rgba(255,247,188,.8);content:"";transform:translateX(-50%) rotate(-2deg)}
+.scratch-note-heading{position:relative;display:flex;align-items:flex-start;justify-content:space-between;gap:8px}
+.scratch-eyebrow{margin:0;color:#8e7a31;font-size:.59rem;font-weight:900;letter-spacing:.1em}
+.scratch-note-heading h2{margin:2px 0 0;font-size:1.17rem;letter-spacing:-.035em}
+.scratch-close{display:grid;place-items:center;width:29px;height:29px;border:1px solid rgba(110,94,38,.18);border-radius:8px;background:rgba(255,255,255,.55);color:#625622;font-size:1.2rem;line-height:1}
+.scratch-help{margin:8px 0 10px;color:#766c43;font-size:.68rem;line-height:1.4}
+.scratch-tools{display:grid;grid-template-columns:auto minmax(44px,1fr) auto auto;align-items:center;gap:5px;margin:0 0 8px}
+.scratch-color,.scratch-width{display:flex;align-items:center;gap:4px;color:#6d633e;font-size:.65rem;font-weight:800}
+.scratch-color input{width:28px;height:27px;padding:2px;border:1px solid rgba(98,81,24,.24);border-radius:7px;background:#fff;cursor:pointer}
+.scratch-width{flex-direction:column;align-items:flex-start;gap:0}
+.scratch-width input{width:100%;height:17px;margin:0;accent-color:#7765c5}
+.scratch-tool{min-height:29px;padding:4px 6px;border:1px solid rgba(98,81,24,.2);border-radius:7px;background:rgba(255,255,255,.52);color:#655a34;font-size:.64rem;font-weight:800}
+.scratch-tool[aria-pressed=true]{border-color:#9688d5;background:#eeeaff;color:#4f4293}
+#scratchCanvas{display:block;width:100%;height:370px;border:1px solid rgba(126,110,59,.22);border-radius:7px;background-color:#fffdf3;background-image:repeating-linear-gradient(to bottom,transparent 0 25px,rgba(102,126,170,.12) 25px 26px);cursor:crosshair;touch-action:none}
+.scratch-footer{display:flex;align-items:center;justify-content:space-between;gap:7px;padding-top:8px;color:#766c43;font-size:.6rem}
+.scratch-footer>div{display:flex;gap:8px}
+.scratch-text-button{padding:2px;border:0;background:transparent;color:#675890;font-size:.66rem;font-weight:800}
+.scratch-text-button:hover{text-decoration:underline}
+.scratch-launcher{display:none;align-items:center;gap:8px;position:fixed;right:16px;bottom:16px;z-index:40;padding:11px 15px;border:1px solid #d9c767;border-radius:999px;background:#fff5b2;color:#594c18;font-size:.8rem;font-weight:850;box-shadow:0 8px 22px rgba(37,48,69,.2)}
+body.scratch-collapsed .layout{grid-template-columns:235px minmax(0,1fr);width:min(1240px,calc(100% - 48px))}
+body.scratch-collapsed .scratchpad-panel{display:none}
+body.scratch-collapsed .scratch-launcher{display:flex}
+
+@media(max-width:1100px){
+  .layout{grid-template-columns:190px minmax(0,1fr);gap:23px;width:min(1240px,calc(100% - 48px))}
+  .scratchpad-panel{display:none}
+  body.scratch-open .scratchpad-panel{display:block;position:fixed;top:78px;right:14px;z-index:40;width:min(330px,calc(100vw - 28px));max-height:calc(100dvh - 92px);overflow:auto}
+  body.scratch-open .scratch-launcher{display:none}
+  .scratch-launcher{display:flex}
+  .scratch-note{padding:17px 14px 12px}
+}
+@media(max-width:720px){
+  .welcome-actions{align-items:flex-start;flex-direction:column;gap:6px}
+  .welcome-secondary{padding:4px 0}
+  .pretest-section{margin:35px 0}
+  .pretest-intro{align-items:flex-start;flex-direction:column;padding:16px}
+  .pretest-intro .primary-button{width:100%}
+  .pretest-runner,.pretest-results{padding:14px}
+  .pretest-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+  .pretest-actions #pretestNext{grid-column:1/-1}
+  .diagnostic-list{grid-template-columns:1fr}
+  .diagnostic-card-top span{font-size:.64rem}
+  body.scratch-open .scratchpad-panel{top:auto;right:10px;bottom:12px;left:10px;width:auto;max-height:78dvh}
+  .scratch-note{padding:16px 14px 10px}
+  #scratchCanvas{height:min(34dvh,310px);min-height:190px}
+  .scratch-launcher{right:13px;bottom:13px}
+}
+@media(max-width:380px){
+  .pretest-progress-row{gap:8px;font-size:.69rem}
+  .diagnostic-actions{gap:8px}
+  .scratch-tools{grid-template-columns:auto minmax(38px,1fr) auto auto;gap:4px}
+  .scratch-tool{padding:4px 5px;font-size:.6rem}
+}

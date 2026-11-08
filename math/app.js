@@ -3,6 +3,7 @@
 
   const $ = (selector) => document.querySelector(selector);
   const STORE_KEY = "math-test-prep-progress-v1";
+  const SCRATCH_KEY = "math-test-prep-scratch-v1";
   const TOPICS = {
     slope: "Slope & rate",
     forms: "Equation forms",
@@ -26,7 +27,29 @@
     inequalities: "inequalities"
   };
   const TOPIC_KEYS = Object.keys(TOPICS);
-  const defaultState = { practiceAttempts: 0, practiceCorrect: 0, topics: [], lastTestScore: null, finalTests: 0 };
+  const PRACTICE_FOR_TOPIC = {
+    slope: "slope",
+    forms: "forms",
+    graphing: "graphing",
+    intercepts: "intercepts",
+    domain: "domain-range",
+    "point-slope": "point-slope",
+    lines: "parallel-perpendicular",
+    modeling: "modeling",
+    inequalities: "inequalities"
+  };
+  const LESSON_FOR_TOPIC = {
+    slope: "lesson-slope",
+    forms: "lesson-forms",
+    graphing: "lesson-graph",
+    intercepts: "lesson-graph",
+    domain: "lesson-domain",
+    "point-slope": "lesson-forms",
+    lines: "lesson-lines",
+    modeling: "lesson-model",
+    inequalities: "lesson-model"
+  };
+  const defaultState = { practiceAttempts: 0, practiceCorrect: 0, topics: [], lastTestScore: null, finalTests: 0, pretestResult: null };
 
   function readState() {
     try {
@@ -47,6 +70,13 @@
   let testDrafts = [];
   let testSubmitted = false;
   let selectedTestAnswer = null;
+  let pretestIndex = 0;
+  let pretestAnswers = [];
+  let selectedPretestAnswer = null;
+  let scratchStrokes = readScratchStrokes();
+  let activeScratchStroke = null;
+  let scratchTool = "pen";
+  let scratchOpen = window.matchMedia("(max-width: 1100px)").matches ? false : true;
 
   function saveState() {
     try {
@@ -402,6 +432,21 @@
   };
   const practiceKeys = ["slope", "forms", "graphing", "intercepts", "domain-range", "point-slope", "parallel-perpendicular", "modeling", "inequalities"];
 
+  const pretestQuestions = [
+    { topic: "slope", focus: "Read slope-intercept form", prompt: "In y = −3x + 5, what is the slope m?", answer: "-3", choices: ["−3", "5", "3", "−5"] },
+    { topic: "slope", focus: "Find slope from two points", prompt: "Find the slope through (1, 2) and (4, 8).", answer: "2", choices: ["2", "3", "−2", "6"] },
+    { topic: "slope", focus: "Find slope from a table", prompt: "A table has x-values 0, 1, 2 and y-values 6, 3, 0. What is the slope?", answer: "-3", choices: ["−3", "3", "−6", "6"] },
+    { topic: "slope", focus: "Recognize slope types", prompt: "What kind of slope does the vertical line x = 4 have?", answer: "Undefined", choices: ["Positive", "Negative", "Zero", "Undefined"] },
+    { topic: "forms", focus: "Rearrange an equation", prompt: "Rewrite 2x + 3y = 12 as y = mx + b. What is the slope m?", answer: "-2/3", choices: ["−2/3", "2/3", "−3/2", "3/2"] },
+    { topic: "graphing", focus: "Use slope to graph a line", prompt: "For y = −½x + 4, start at the y-intercept and move 2 units right. What point do you reach?", answer: "(2, 3)", choices: ["(2, 3)", "(2, 5)", "(1, 2)", "(4, 2)"] },
+    { topic: "intercepts", focus: "Find an x-intercept", prompt: "What is the x-intercept of 2x + y = 6?", answer: "(3, 0)", choices: ["(6, 0)", "(0, 6)", "(3, 0)", "(0, 3)"] },
+    { topic: "domain", focus: "Understand domain and range", prompt: "For the unrestricted line y = 2x + 1, which statement about its domain and range is true?", answer: "Both are all real numbers", choices: ["Both are all real numbers", "Domain is x ≥ 0; range is y ≥ 0", "Domain is all real numbers; range is y ≥ 1", "Domain is whole numbers; range is all real numbers"] },
+    { topic: "point-slope", focus: "Write point-slope form", prompt: "Which equation is point-slope form for slope −2 through (3, 4)?", answer: "y − 4 = −2(x − 3)", choices: ["y − 4 = −2(x − 3)", "y + 4 = −2(x + 3)", "y = −2x + 3", "y − 3 = −2(x − 4)"] },
+    { topic: "lines", focus: "Find a perpendicular slope", prompt: "A line has slope −4. What is the slope of a perpendicular line?", answer: "1/4", choices: ["1/4", "−1/4", "4", "−4"] },
+    { topic: "modeling", focus: "Build a linear model", prompt: "A rental costs $8 to unlock and $3 per hour. Which rule gives the total cost C for h hours?", answer: "C = 3h + 8", choices: ["C = 3h + 8", "C = 8h + 3", "C = 3h − 8", "C = 11h"] },
+    { topic: "inequalities", focus: "Read inequality symbols", prompt: "For y ≥ x + 2, how should the boundary be drawn and the solution shaded?", answer: "Solid line; shade above", choices: ["Solid line; shade above", "Dashed line; shade above", "Solid line; shade below", "Dashed line; shade below"] }
+  ];
+
   function makeQuestion(key) {
     if (key === "mixed") key = pick(practiceKeys);
     if (key === "slope") key = pick(["slope-points", "slope-table", "slope-types", "slope-graph"]);
@@ -604,6 +649,169 @@
     { topic: "inequalities", prompt: "For y ≥ x + 2, how should the boundary line be drawn, and which side is shaded?", answer: "Solid line; shade above", choices: ["Solid line; shade above", "Dashed line; shade above", "Solid line; shade below", "Dashed line; shade below"], explanation: "The bar in ≥ means the boundary is included, so draw a solid line. Greater-than shades above the line." }
   ];
 
+  function renderPretestQuestion() {
+    const question = pretestQuestions[pretestIndex];
+    selectedPretestAnswer = pretestAnswers[pretestIndex] || null;
+    $("#pretestCounter").textContent = "Question " + (pretestIndex + 1) + " of " + pretestQuestions.length;
+    $("#pretestFill").style.width = ((pretestIndex + (selectedPretestAnswer ? 1 : 0)) / pretestQuestions.length * 100) + "%";
+    $("#pretestTopic").textContent = TOPICS[question.topic] + " · " + question.focus;
+    $("#pretestPrompt").textContent = question.prompt;
+    $("#pretestChoices").replaceChildren();
+    question.choices.forEach((choice, index) => {
+      const button = document.createElement("button");
+      button.type = "button";
+      button.className = "choice";
+      if (choice === selectedPretestAnswer) button.classList.add("selected");
+      const letter = document.createElement("span");
+      letter.className = "choice-dot";
+      letter.textContent = String.fromCharCode(65 + index);
+      const label = document.createElement("span");
+      label.textContent = choice;
+      button.append(letter, label);
+      button.addEventListener("click", () => {
+        selectedPretestAnswer = choice;
+        pretestAnswers[pretestIndex] = choice;
+        $("#pretestNudge").hidden = true;
+        $("#pretestChoices").querySelectorAll(".choice").forEach((item) => item.classList.remove("selected"));
+        button.classList.add("selected");
+        $("#pretestFill").style.width = ((pretestIndex + 1) / pretestQuestions.length * 100) + "%";
+      });
+      $("#pretestChoices").appendChild(button);
+    });
+    $("#pretestBack").disabled = pretestIndex === 0;
+    $("#pretestNext").textContent = pretestIndex === pretestQuestions.length - 1 ? "See my results" : "Next question";
+    $("#pretestSkip").hidden = Boolean(selectedPretestAnswer);
+    $("#pretestNudge").hidden = true;
+  }
+
+  function startPretest() {
+    pretestIndex = 0;
+    pretestAnswers = Array(pretestQuestions.length).fill(null);
+    selectedPretestAnswer = null;
+    $("#pretestIntro").hidden = true;
+    $("#pretestResults").hidden = true;
+    $("#pretestRunner").hidden = false;
+    renderPretestQuestion();
+    $("#pretest").scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+
+  function advancePretest(skip) {
+    if (skip) {
+      pretestAnswers[pretestIndex] = null;
+      selectedPretestAnswer = null;
+    } else if (!selectedPretestAnswer) {
+      $("#pretestNudge").hidden = false;
+      return;
+    }
+    if (pretestIndex === pretestQuestions.length - 1) {
+      finishPretest();
+      return;
+    }
+    pretestIndex += 1;
+    renderPretestQuestion();
+  }
+
+  function finishPretest() {
+    const skills = {};
+    TOPIC_KEYS.forEach((topic) => { skills[topic] = { correct: 0, total: 0, missed: [] }; });
+    let score = 0;
+    pretestQuestions.forEach((question, index) => {
+      const skill = skills[question.topic];
+      const answer = pretestAnswers[index];
+      const correct = Boolean(answer) && answersMatch(question.answer, answer);
+      skill.total += 1;
+      if (correct) {
+        score += 1;
+        skill.correct += 1;
+      } else {
+        skill.missed.push(question.focus);
+      }
+    });
+    state.pretestResult = { score: score, total: pretestQuestions.length, skills: skills, completedAt: new Date().toISOString() };
+    saveState();
+    $("#pretestRunner").hidden = true;
+    $("#pretestIntro").hidden = true;
+    $("#pretestResults").hidden = false;
+    renderPretestResults(state.pretestResult);
+    refreshPretestSummary();
+  }
+
+  function renderPretestResults(result) {
+    const container = $("#pretestResults");
+    container.replaceChildren();
+    const weakTopics = TOPIC_KEYS.filter((topic) => result.skills[topic] && result.skills[topic].missed.length);
+    const scoreRow = document.createElement("div");
+    scoreRow.className = "result-score diagnostic-score";
+    const scoreNumber = document.createElement("div");
+    scoreNumber.className = "score-number";
+    scoreNumber.textContent = result.score + "/" + result.total;
+    const scoreText = document.createElement("div");
+    const heading = document.createElement("h3");
+    heading.textContent = weakTopics.length ? "Here’s what to brush up on" : "All nine skills look strong";
+    const summary = document.createElement("p");
+    summary.textContent = weakTopics.length
+      ? "You got " + result.score + " of " + result.total + " correct. Start with the topics marked for review, then try the matching practice."
+      : "You got all " + result.total + " correct. Keep the skills fresh with mixed practice.";
+    scoreText.append(heading, summary);
+    scoreRow.append(scoreNumber, scoreText);
+    container.appendChild(scoreRow);
+
+    const listHeading = document.createElement("h3");
+    listHeading.className = "diagnostic-list-heading";
+    listHeading.textContent = weakTopics.length ? "Your skill-by-skill review" : "Your skill snapshot";
+    container.appendChild(listHeading);
+    const list = document.createElement("div");
+    list.className = "diagnostic-list";
+    TOPIC_KEYS.forEach((topic) => {
+      const skill = result.skills[topic];
+      if (!skill) return;
+      const needsReview = skill.missed.length > 0;
+      const card = document.createElement("article");
+      card.className = "diagnostic-card " + (needsReview ? "needs-review" : "looks-good");
+      const top = document.createElement("div");
+      top.className = "diagnostic-card-top";
+      const title = document.createElement("strong");
+      title.textContent = TOPICS[topic];
+      const status = document.createElement("span");
+      status.textContent = skill.correct + "/" + skill.total + " correct · " + (needsReview ? "Brush up" : "Looks good");
+      top.append(title, status);
+      const detail = document.createElement("p");
+      detail.textContent = needsReview ? "Review: " + skill.missed.join(", ") + "." : "You answered this skill correctly. Keep it fresh with practice.";
+      const actions = document.createElement("div");
+      actions.className = "diagnostic-actions";
+      const lessonLink = document.createElement("a");
+      lessonLink.className = "diagnostic-link";
+      lessonLink.href = "#" + LESSON_FOR_TOPIC[topic];
+      lessonLink.textContent = "Review lesson";
+      const practiceButton = document.createElement("button");
+      practiceButton.type = "button";
+      practiceButton.className = "quiet-button";
+      practiceButton.setAttribute("data-practice", PRACTICE_FOR_TOPIC[topic]);
+      practiceButton.textContent = "Practice this skill";
+      actions.append(lessonLink, practiceButton);
+      card.append(top, detail, actions);
+      list.appendChild(card);
+    });
+    container.appendChild(list);
+    const retake = document.createElement("button");
+    retake.type = "button";
+    retake.className = "primary-button retake-pretest";
+    retake.textContent = "Take the pretest again";
+    retake.addEventListener("click", startPretest);
+    container.appendChild(retake);
+  }
+
+  function refreshPretestSummary() {
+    if (!state.pretestResult || !state.pretestResult.skills) return;
+    const result = state.pretestResult;
+    const weakCount = TOPIC_KEYS.filter((topic) => result.skills[topic] && result.skills[topic].missed && result.skills[topic].missed.length).length;
+    const completed = result.completedAt ? new Date(result.completedAt).toLocaleDateString() : "saved";
+    const lastResult = $("#pretestLastResult");
+    lastResult.hidden = false;
+    lastResult.textContent = "Latest result: " + result.score + "/" + result.total + " · " + (weakCount ? weakCount + " topic" + (weakCount === 1 ? "" : "s") + " to review" : "all skills look strong") + " · " + completed;
+    $("#viewPretestResults").hidden = false;
+  }
+
   function startTest() {
     testIndex = 0;
     testResponses = [];
@@ -714,16 +922,32 @@
   $("#hintButton").addEventListener("click", () => { $("#hintText").hidden = !$("#hintText").hidden; });
   $("#chooseMode").addEventListener("click", () => { practiceAnswerMode = "choice"; updatePracticeMode(); });
   $("#writeMode").addEventListener("click", () => { practiceAnswerMode = "written"; updatePracticeMode(); });
-  document.querySelectorAll("[data-practice]").forEach((button) => {
-    button.addEventListener("click", () => {
-      $("#practiceSkill").value = button.getAttribute("data-practice");
-      currentQuestion = makeQuestion($("#practiceSkill").value);
-      renderPracticeQuestion();
-      $("#practice").scrollIntoView({ behavior: "smooth", block: "start" });
-    });
+  document.addEventListener("click", (event) => {
+    const button = event.target.closest("[data-practice]");
+    if (!button) return;
+    event.preventDefault();
+    $("#practiceSkill").value = button.getAttribute("data-practice");
+    currentQuestion = makeQuestion($("#practiceSkill").value);
+    renderPracticeQuestion();
+    $("#practice").scrollIntoView({ behavior: "smooth", block: "start" });
   });
   $("#graphSlope").addEventListener("input", updateMainGraph);
   $("#graphIntercept").addEventListener("input", updateMainGraph);
+  $("#startPretest").addEventListener("click", startPretest);
+  $("#viewPretestResults").addEventListener("click", () => {
+    if (!state.pretestResult) return;
+    $("#pretestIntro").hidden = true;
+    $("#pretestResults").hidden = false;
+    renderPretestResults(state.pretestResult);
+  });
+  $("#pretestBack").addEventListener("click", () => {
+    if (pretestIndex > 0) {
+      pretestIndex -= 1;
+      renderPretestQuestion();
+    }
+  });
+  $("#pretestNext").addEventListener("click", () => advancePretest(false));
+  $("#pretestSkip").addEventListener("click", () => advancePretest(true));
   $("#startTest").addEventListener("click", startTest);
   $("#testNext").addEventListener("click", submitTestAnswer);
   $("#testBack").addEventListener("click", () => {
@@ -748,8 +972,170 @@
     $("#graphEquation").textContent = "y = " + term;
   }
 
+  function readScratchStrokes() {
+    try {
+      const saved = JSON.parse(localStorage.getItem(SCRATCH_KEY) || "[]");
+      if (!Array.isArray(saved)) return [];
+      return saved.filter((stroke) => stroke && Array.isArray(stroke.points) && stroke.points.length > 0);
+    } catch (error) {
+      return [];
+    }
+  }
+
+  const scratchCanvas = $("#scratchCanvas");
+  const scratchContext = scratchCanvas.getContext("2d");
+
+  function drawScratchStroke(stroke, width, height) {
+    const points = stroke.points;
+    if (!points.length) return;
+    scratchContext.save();
+    scratchContext.globalCompositeOperation = stroke.tool === "eraser" ? "destination-out" : "source-over";
+    scratchContext.strokeStyle = stroke.color || "#263654";
+    scratchContext.fillStyle = stroke.color || "#263654";
+    scratchContext.lineWidth = stroke.size || 4;
+    scratchContext.lineCap = "round";
+    scratchContext.lineJoin = "round";
+    const first = points[0];
+    scratchContext.beginPath();
+    scratchContext.moveTo(first.x * width, first.y * height);
+    if (points.length === 1) {
+      scratchContext.arc(first.x * width, first.y * height, (stroke.size || 4) / 2, 0, Math.PI * 2);
+      scratchContext.fill();
+    } else {
+      points.slice(1).forEach((point) => scratchContext.lineTo(point.x * width, point.y * height));
+      scratchContext.stroke();
+    }
+    scratchContext.restore();
+  }
+
+  function drawScratchSegment(stroke, from, to, width, height) {
+    scratchContext.save();
+    scratchContext.globalCompositeOperation = stroke.tool === "eraser" ? "destination-out" : "source-over";
+    scratchContext.strokeStyle = stroke.color || "#263654";
+    scratchContext.fillStyle = stroke.color || "#263654";
+    scratchContext.lineWidth = stroke.size || 4;
+    scratchContext.lineCap = "round";
+    scratchContext.lineJoin = "round";
+    scratchContext.beginPath();
+    scratchContext.moveTo(from.x * width, from.y * height);
+    scratchContext.lineTo(to.x * width, to.y * height);
+    scratchContext.stroke();
+    scratchContext.restore();
+  }
+
+  function redrawScratch() {
+    const width = scratchCanvas.clientWidth;
+    const height = scratchCanvas.clientHeight;
+    scratchContext.clearRect(0, 0, width, height);
+    scratchStrokes.forEach((stroke) => drawScratchStroke(stroke, width, height));
+  }
+
+  function resizeScratchCanvas() {
+    const rect = scratchCanvas.getBoundingClientRect();
+    if (rect.width < 2 || rect.height < 2) return;
+    const ratio = Math.min(window.devicePixelRatio || 1, 2);
+    const pixelWidth = Math.round(rect.width * ratio);
+    const pixelHeight = Math.round(rect.height * ratio);
+    if (scratchCanvas.width === pixelWidth && scratchCanvas.height === pixelHeight) return;
+    scratchCanvas.width = pixelWidth;
+    scratchCanvas.height = pixelHeight;
+    scratchContext.setTransform(ratio, 0, 0, ratio, 0, 0);
+    redrawScratch();
+  }
+
+  function saveScratchStrokes() {
+    try {
+      localStorage.setItem(SCRATCH_KEY, JSON.stringify(scratchStrokes));
+      $("#scratchStatus").textContent = "Saved on this device.";
+    } catch (error) {
+      $("#scratchStatus").textContent = "Could not save. Try clearing some notes.";
+    }
+  }
+
+  function scratchPoint(event) {
+    const rect = scratchCanvas.getBoundingClientRect();
+    return { x: Math.max(0, Math.min(1, (event.clientX - rect.left) / rect.width)), y: Math.max(0, Math.min(1, (event.clientY - rect.top) / rect.height)) };
+  }
+
+  scratchCanvas.addEventListener("pointerdown", (event) => {
+    if (event.button !== 0 && event.pointerType === "mouse") return;
+    event.preventDefault();
+    const point = scratchPoint(event);
+    activeScratchStroke = { tool: scratchTool, color: $("#scratchColor").value, size: scratchTool === "eraser" ? 22 : Number($("#scratchWidth").value), points: [point] };
+    scratchStrokes.push(activeScratchStroke);
+    if (scratchStrokes.length > 180) scratchStrokes.shift();
+    scratchCanvas.setPointerCapture(event.pointerId);
+    drawScratchStroke(activeScratchStroke, scratchCanvas.clientWidth, scratchCanvas.clientHeight);
+  });
+  scratchCanvas.addEventListener("pointermove", (event) => {
+    if (!activeScratchStroke) return;
+    event.preventDefault();
+    const next = scratchPoint(event);
+    const previous = activeScratchStroke.points[activeScratchStroke.points.length - 1];
+    if (Math.hypot(next.x - previous.x, next.y - previous.y) < 0.001) return;
+    activeScratchStroke.points.push(next);
+    drawScratchSegment(activeScratchStroke, previous, next, scratchCanvas.clientWidth, scratchCanvas.clientHeight);
+  });
+  function finishScratchStroke() {
+    if (!activeScratchStroke) return;
+    activeScratchStroke = null;
+    saveScratchStrokes();
+  }
+  scratchCanvas.addEventListener("pointerup", finishScratchStroke);
+  scratchCanvas.addEventListener("pointercancel", finishScratchStroke);
+  $("#scratchColor").addEventListener("input", () => {
+    scratchTool = "pen";
+    $("#scratchPen").setAttribute("aria-pressed", "true");
+    $("#scratchEraser").setAttribute("aria-pressed", "false");
+  });
+  $("#scratchPen").addEventListener("click", () => {
+    scratchTool = "pen";
+    $("#scratchPen").setAttribute("aria-pressed", "true");
+    $("#scratchEraser").setAttribute("aria-pressed", "false");
+  });
+  $("#scratchEraser").addEventListener("click", () => {
+    scratchTool = "eraser";
+    $("#scratchPen").setAttribute("aria-pressed", "false");
+    $("#scratchEraser").setAttribute("aria-pressed", "true");
+  });
+  $("#undoScratch").addEventListener("click", () => {
+    if (!scratchStrokes.length) return;
+    scratchStrokes.pop();
+    redrawScratch();
+    saveScratchStrokes();
+  });
+  $("#clearScratch").addEventListener("click", () => {
+    scratchStrokes = [];
+    redrawScratch();
+    saveScratchStrokes();
+  });
+
+  function applyScratchPanelState() {
+    const compact = window.matchMedia("(max-width: 1100px)").matches;
+    document.body.classList.toggle("scratch-open", compact && scratchOpen);
+    document.body.classList.toggle("scratch-collapsed", !compact && !scratchOpen);
+    $("#toggleScratchpad").setAttribute("aria-expanded", String(scratchOpen));
+    requestAnimationFrame(resizeScratchCanvas);
+  }
+  $("#toggleScratchpad").addEventListener("click", () => {
+    scratchOpen = !scratchOpen;
+    applyScratchPanelState();
+  });
+  $("#closeScratchpad").addEventListener("click", () => {
+    scratchOpen = false;
+    applyScratchPanelState();
+  });
+  const scratchMedia = window.matchMedia("(max-width: 1100px)");
+  scratchMedia.addEventListener("change", (event) => {
+    scratchOpen = !event.matches;
+    applyScratchPanelState();
+  });
+  window.addEventListener("resize", resizeScratchCanvas);
+
   updateProgress();
+  refreshPretestSummary();
   currentQuestion = makeQuestion("mixed");
   renderPracticeQuestion();
   updateMainGraph();
+  applyScratchPanelState();
 })();
