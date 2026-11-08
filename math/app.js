@@ -280,7 +280,7 @@
       hint: askY ? "Set x = 0. The y-value that remains is the y-intercept." : "Set y = 0 and solve the equation for x.",
       explanation: askY
         ? "Set x = 0 in " + linearForm(slope, intercept) + ". Then y = " + intercept + ", so the y-intercept is (0, " + intercept + ")."
-        : "Set y = 0: 0 = " + slope + "x + " + intercept + ". Solving gives x = " + zero + ", so the x-intercept is (" + zero + ", 0)."
+        : "Set y = 0 in " + linearForm(slope, intercept) + ": 0 = " + linearForm(slope, intercept).slice(2) + ". Solving gives x = " + zero + ", so the x-intercept is (" + zero + ", 0)."
     };
   }
 
@@ -452,7 +452,7 @@
       markup += '<line x1="' + left + '" y1="' + sy(intercept) + '" x2="' + right + '" y2="' + sy(intercept) + '" stroke="#3769d6" stroke-width="3.5" stroke-linecap="round"/>';
     }
     svg.innerHTML = markup;
-    svg.setAttribute("aria-label", "Graph of y = " + slope + "x + " + intercept + " on a coordinate grid from negative five to five");
+    svg.setAttribute("aria-label", "Graph of " + linearForm(slope, intercept) + " on a coordinate grid from negative five to five");
   }
 
   function renderTable(table) {
