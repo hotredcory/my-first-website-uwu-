@@ -354,6 +354,20 @@
     }
     @media(prefers-reduced-motion:reduce){.living-room-art *, .present-card *, .present-card::before,.present-card::after{animation-duration:.01ms!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
   </style>
+<style>
+    .room-main .intro { max-width:760px; }
+    .room-main .intro h1 { font-size:clamp(2.25rem,4.8vw,3.65rem); white-space:nowrap; }
+    .room-main .wishlist-section .section-head,
+    .room-main .budget-section .section-head {
+      display:inline-flex; max-width:calc(100% - 8px); margin:0 0 9px 4px; padding:9px 14px 10px;
+      border:1px solid rgba(255,255,255,.72); border-radius:14px; background:rgba(255,251,240,.82);
+      box-shadow:0 6px 18px rgba(59,41,26,.08); backdrop-filter:blur(5px);
+    }
+    @media(max-width:760px) {
+      .room-main .intro h1 { font-size:clamp(2.05rem,8vw,3rem); white-space:normal; }
+      .room-main .intro { max-width:560px; }
+    }
+  </style>
 </head>
 <body>
   <div class="living-room-art" aria-hidden="true">
