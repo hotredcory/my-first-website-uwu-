@@ -368,6 +368,126 @@
       .room-main .intro { max-width:560px; }
     }
   </style>
+
+  <style>
+    :root { --room-wall:#f4e8d5; --room-wood:#a9784d; --room-dark:#633f2d; }
+    html, body { min-height:100%; }
+    body { position:relative; overflow-x:hidden; background-color:#a9784d; background-image:linear-gradient(to bottom,#f4e8d5 0,#f5eadb 610px,transparent 610px),repeating-linear-gradient(90deg,transparent 0 92px,rgba(75,45,28,.14) 93px 95px),repeating-linear-gradient(0deg,transparent 0 70px,rgba(255,230,190,.12) 71px 73px),linear-gradient(180deg,#b98252,#8e5c3d); background-repeat:no-repeat; }
+    body > .living-room-art:first-of-type { display:none; }
+    body > .living-room-art:nth-of-type(2) { position:absolute; inset:0 0 auto; z-index:0; height:900px; overflow:hidden; background:transparent; }
+    .living-room-art::before { height:19%; background:repeating-linear-gradient(90deg,rgba(71,42,27,.12) 0 2px,transparent 2px 150px),linear-gradient(#c59060,#9c6b45); opacity:.35; }
+    .living-room-art::after { height:9%; }
+    .living-room-art .christmas-tree { display:none; }
+    .room-window { top:106px; left:8%; right:auto; width:175px; height:148px; }
+    .fireplace-scene { top:204px; right:5%; bottom:auto; }
+    .room-rug { top:635px; bottom:auto; left:25%; width:50%; height:74px; }
+    .shell { position:relative; z-index:1; }
+    .site-header { padding:17px 0; border-bottom-color:rgba(92,62,39,.16); }
+    .brand { color:#244537; }
+    .brand-mark { background:#22543f; }
+    .corner-nav { gap:7px; }
+    .corner-nav a { min-height:36px; border-color:rgba(255,255,255,.72); background:rgba(255,251,242,.78); color:#3169a8; backdrop-filter:blur(6px); }
+    .gift-switch { display:grid; width:38px; height:38px; place-items:center; border:1px solid rgba(255,255,255,.78); border-radius:50%; background:rgba(255,251,242,.86); color:#244537; cursor:pointer; font-size:1.1rem; box-shadow:0 4px 12px rgba(70,47,29,.11); transition:transform .18s ease,background .18s ease; }
+    .gift-switch:hover { transform:translateY(-2px) rotate(-6deg); background:#fff; }
+    .gift-switch:focus-visible { outline:3px solid #5384c5; outline-offset:3px; }
+    .room-main { min-height:0; padding-top:22px; padding-bottom:18px; }
+    .room-main .intro { max-width:720px; margin-bottom:4px; padding:14px 24px; border-color:rgba(255,255,255,.72); background:rgba(255,251,242,.8); box-shadow:0 10px 28px rgba(59,41,26,.08); }
+    .room-main .intro h1 { white-space:normal; }
+    .intro-copy { margin-top:10px; }
+    .lights { margin-top:12px; }
+    .tree-stage { position:relative; height:clamp(286px,34vw,364px); margin:0 auto 0; overflow:visible; }
+    .tree-stage .christmas-tree { position:absolute; left:50%; bottom:0; display:block; width:clamp(250px,31vw,350px); height:100%; transform:translateX(-50%); filter:drop-shadow(0 13px 11px rgba(52,35,21,.24)); }
+    .tree-stage .tree-star { top:1px; font-size:clamp(2.1rem,4vw,2.8rem); }
+    .tree-stage .tree-layer-one { top:49px; width:58%; height:39%; }
+    .tree-stage .tree-layer-two { top:106px; width:80%; height:43%; }
+    .tree-stage .tree-layer-three { top:174px; width:100%; height:49%; }
+    .tree-stage .tree-lights { top:58px; right:16%; bottom:55px; left:16%; background-size:43px 48px,54px 60px,34px 38px; }
+    .tree-stage .tree-trunk { width:40px; height:58px; }
+    .tree-stage::after { position:absolute; right:calc(50% - 190px); bottom:-5px; left:calc(50% - 190px); height:25px; border-radius:50%; background:rgba(255,248,224,.32); box-shadow:0 8px 20px rgba(84,52,31,.12); content:""; }
+    .wishlist-section { width:min(1160px,100%); margin:0 auto; padding:0 0 7px; }
+    .wishlist-section .section-head { display:flex; justify-content:center; margin:0 0 2px; padding:0 10px; border:0; background:transparent; box-shadow:none; text-align:center; }
+    .wishlist-section .section-head h2 { color:#284638; font-size:clamp(1.25rem,2.5vw,1.6rem); }
+    .wishlist-section .section-head p { margin-top:3px; color:#574737; font-size:.82rem; }
+    .present-track { gap:10px; margin:-2px 0 0; padding:43px 4px 7px; overflow-x:auto; }
+    .present-track[hidden] { display:none; }
+    .main-line .present-card { flex:0 0 calc((100% - 40px)/5); }
+    .small-line .present-card { flex:0 0 calc((100% - 20px)/3); }
+    .present-card { overflow:visible; border-radius:12px; }
+    .present-controls { min-height:183px; gap:3px; }
+    .present-open { min-height:148px; padding:18px 4px 4px; }
+    .gift-box { width:110px; height:110px; }
+    .gift-base { top:52px; }
+    .gift-lid { top:39px; }
+    .present-hint { font-size:.72rem; text-shadow:0 1px 4px rgba(34,22,14,.7); }
+    .shake-gift { min-height:28px; padding:3px 12px; border-color:rgba(255,255,255,.65); background:rgba(40,69,51,.84); font-size:.66rem; }
+    .present-card.is-opening .present-open::after { position:absolute; inset:4px; border-radius:18px; background:radial-gradient(circle at 50% 52%,rgba(255,248,206,.9),rgba(255,230,160,.34) 27%,transparent 67%); content:""; pointer-events:none; animation:giftSparkle .7s ease-out both; }
+    .present-card.is-opening .gift-box { animation:giftOpen .78s cubic-bezier(.2,.75,.18,1) both; }
+    .present-card.is-opening .gift-base { animation:wrapFade .66s .08s ease-out both; }
+    .present-card.is-opening .gift-lid { animation:giftLidFly .72s cubic-bezier(.18,.7,.2,1) both; }
+    .present-card.is-opening .gift-bow { animation:giftBowFly .6s .03s cubic-bezier(.18,.7,.2,1) both; }
+    .present-card.is-open { flex:0 0 min(300px,78vw); border:1px solid rgba(255,255,255,.85); background:rgba(255,251,242,.96); box-shadow:0 15px 32px rgba(57,37,23,.18); transition:flex-basis .48s cubic-bezier(.2,.78,.2,1),box-shadow .3s ease; }
+    .present-card.is-open .present-controls { display:none; }
+    .gift-content { padding-bottom:4px; animation:giftReveal .56s .08s cubic-bezier(.2,.8,.2,1) both; }
+    .gift-content .product-art img { animation:productPop .62s .13s cubic-bezier(.2,.8,.2,1) both; }
+    .budget-callout { display:none; }
+    .budget-section { position:static; width:100%; max-width:none; margin:0; padding:0; border:0; border-radius:0; background:transparent; backdrop-filter:none; }
+    .budget-section[hidden] { display:none; }
+    .budget-section .section-head { position:absolute!important; width:1px!important; height:1px!important; overflow:hidden!important; clip:rect(0,0,0,0)!important; white-space:nowrap!important; }
+    .budget-section .present-track { margin-top:-2px; }
+    .scroll-hint { color:#5b4a3d; font-size:.7rem; text-align:center; }
+    .thanks { max-width:max-content; margin:26px auto 10px; padding:9px 16px; border:1px solid rgba(255,255,255,.58); border-radius:999px; background:rgba(255,250,239,.55); color:#433525; }
+    footer { padding:14px 10px 22px; border-top-color:rgba(92,62,39,.18); color:#4d3b2e; }
+    @keyframes giftSparkle { 0% { opacity:0; transform:scale(.72); } 35% { opacity:1; } 100% { opacity:0; transform:scale(1.18); } }
+    @keyframes giftOpen { 0% { transform:scale(1) rotate(0); filter:drop-shadow(0 11px 9px rgba(38,29,23,.22)); } 22% { transform:translateY(-17px) rotate(-5deg) scale(1.12); } 43% { transform:translateY(2px) rotate(3deg) scale(.99); } 61% { transform:translateY(-6px) rotate(-2deg) scale(1.04); } 100% { transform:translateY(30px) scale(.76); opacity:0; filter:blur(4px) drop-shadow(0 0 14px rgba(255,223,139,.8)); } }
+    @keyframes wrapFade { 0%,45% { opacity:1; } 100% { opacity:0; transform:scale(.86); } }
+    @keyframes giftLidFly { 0% { transform:translate(0,0) rotate(0); } 30% { transform:translate(-4px,-33px) rotate(-18deg); } 68% { transform:translate(-9px,-54px) rotate(-31deg); opacity:1; } 100% { transform:translate(-12px,-66px) rotate(-37deg) scale(.8); opacity:0; } }
+    @keyframes giftBowFly { 0% { transform:translateX(-50%) scale(1); } 33% { transform:translate(-50%,-28px) rotate(22deg) scale(1.2); } 100% { transform:translate(-50%,-70px) rotate(46deg) scale(.45); opacity:0; } }
+    @keyframes productPop { from { opacity:0; transform:translateY(14px) scale(.84); } to { opacity:1; transform:translateY(0) scale(1); } }
+    .present-track.set-arrive { animation:giftSetArrive .4s cubic-bezier(.2,.8,.2,1) both; }
+    @keyframes giftSetArrive { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:translateY(0); } }
+    @media(max-width:760px) {
+      .room-window { top:84px; left:4%; right:auto; width:90px; height:82px; border-width:6px; opacity:.72; }
+      .fireplace-scene { top:335px; right:-40px; width:178px; height:162px; opacity:.83; }
+      .fireplace-mantel { height:25px; }.stocking { top:18px; width:16px; height:27px; }
+      .stocking::before { width:23px; height:8px; left:-4px; }.stocking::after { right:-6px; width:13px; height:9px; }
+      .fireplace-brick { top:22px; right:9px; bottom:9px; left:9px; border-width:8px; }
+      .fireplace-opening { right:19px; left:19px; height:78px; }.flame { width:24px; height:48px; }.flame-two { height:59px; }
+      .fireplace-hearth { height:15px; }.room-rug { top:615px; left:7%; width:86%; height:55px; border-width:5px; }
+      .site-header { padding:13px 0; }.corner-nav { gap:5px; }
+      .corner-nav a { min-height:33px; padding:0 9px; font-size:.72rem; }
+      .gift-switch { width:35px; height:35px; font-size:1rem; }
+      .room-main { padding-top:18px; padding-bottom:14px; }
+      .room-main .intro { width:min(100% - 8px,520px); margin-bottom:0; padding:12px 12px; border-radius:18px; }
+      .room-main .intro h1 { font-size:clamp(2rem,8vw,2.8rem); }
+      .intro-copy { margin-top:8px; font-size:.86rem; line-height:1.45; }
+      .lights { margin-top:9px; }
+      .tree-stage { height:clamp(270px,76vw,320px); margin-top:0; }
+      .tree-stage .christmas-tree { width:clamp(235px,68vw,285px); }
+      .tree-stage .tree-star { font-size:2rem; }
+      .tree-stage .tree-layer-one { top:39px; }.tree-stage .tree-layer-two { top:86px; }.tree-stage .tree-layer-three { top:143px; }
+      .tree-stage .tree-lights { top:47px; right:15%; bottom:47px; left:15%; background-size:34px 40px,43px 50px,27px 31px; }
+      .tree-stage .tree-trunk { width:33px; height:48px; }
+      .tree-stage::after { right:calc(50% - 150px); left:calc(50% - 150px); height:20px; }
+      .wishlist-section { padding-bottom:6px; }
+      .wishlist-section .section-head { padding:0 12px; }
+      .wishlist-section .section-head h2 { font-size:1.18rem; }
+      .wishlist-section .section-head p { font-size:.75rem; }
+      .present-track { gap:8px; padding:42px 13px 6px; scroll-padding-inline:13px; }
+      .main-line .present-card,.small-line .present-card { flex:0 0 132px; min-width:132px; }
+      .present-controls { min-height:163px; }
+      .present-open { min-height:132px; }
+      .gift-box { width:100px; height:103px; }
+      .gift-base { top:49px; }.gift-lid { top:36px; }
+      .present-hint { font-size:.66rem; }
+      .shake-gift { min-height:27px; font-size:.62rem; }
+      .present-card.is-open { flex-basis:min(292px,82vw); min-width:min(292px,82vw); }
+      .scroll-hint { display:block; margin:2px 0 0; }
+      .thanks { margin-top:19px; font-size:.9rem; }
+      footer { font-size:.72rem; }
+    }
+    @media(max-width:360px) { .brand>span:last-child { max-width:none; }.main-line .present-card,.small-line .present-card { flex-basis:124px; min-width:124px; } }
+    @media(prefers-reduced-motion:reduce) { .tree-stage *, .present-card *, .present-card::before, .present-card::after { animation-duration:.01ms!important; animation-iteration-count:1!important; transition-duration:.01ms!important; scroll-behavior:auto!important; } }
+  </style>
 </head>
 <body>
   <div class="living-room-art" aria-hidden="true">
@@ -401,6 +521,7 @@
       <nav class="corner-nav" aria-label="Other sections">
         <a href="/math/">Math</a>
         <a href="/Retro_Corner_V0.97.html">Games</a>
+        <button class="gift-switch" id="budgetToggle" type="button" aria-label="Show the three smaller presents" title="Show smaller presents" aria-pressed="false">🎁</button>
       </nav>
     </header>
     <main id="main-content" class="room-main">
@@ -411,18 +532,21 @@
         <div class="lights" aria-hidden="true"><span class="light"></span><span class="light"></span><span class="light"></span><span class="light"></span><span class="light"></span><span class="light"></span><span class="light"></span></div>
       </section>
 
+      <div class="tree-stage" aria-hidden="true">
+        <div class="christmas-tree"><span class="tree-star">★</span><span class="tree-layer tree-layer-one"></span><span class="tree-layer tree-layer-two"></span><span class="tree-layer tree-layer-three"></span><span class="tree-lights"></span><span class="tree-trunk"></span></div>
+      </div>
+
       <section class="wishlist-section" aria-labelledby="main-gifts-title">
         <div class="section-head"><div><h2 id="main-gifts-title">Five presents under the tree</h2><p>Open a gift to see what’s inside. Shake one to hear what might be in it.</p></div></div>
         <div class="present-track main-line" role="group" aria-label="Five wrapped Christmas presents">
           <article class="present-card main-present" data-present data-gift-name="ASUS Prime GeForce RTX 5060" data-sound="electronics">
             <div class="present-controls">
               <button class="present-open" type="button" aria-expanded="false" aria-controls="gift-asus-prime-geforce-rtx-5060" aria-label="Open present: ASUS Prime GeForce RTX 5060">
-                <span class="present-number">Present 1 of 5</span>
                 <span class="gift-box" aria-hidden="true"><span class="gift-bow"><i></i><i></i><b></b></span><span class="gift-lid"></span><span class="gift-base"></span></span>
                 <span class="present-hint">Open present</span>
               </button>
               <button class="shake-gift" type="button" aria-label="Shake ASUS Prime GeForce RTX 5060">
-                <span aria-hidden="true">↔</span><span>Shake</span>
+                <span>Shake</span>
               </button>
             </div>
             <div class="gift-content" id="gift-asus-prime-geforce-rtx-5060" hidden>
@@ -434,12 +558,11 @@
           <article class="present-card main-present" data-present data-gift-name="Apple AirPods 5" data-sound="plastic">
             <div class="present-controls">
               <button class="present-open" type="button" aria-expanded="false" aria-controls="gift-apple-airpods-5" aria-label="Open present: Apple AirPods 5">
-                <span class="present-number">Present 2 of 5</span>
                 <span class="gift-box" aria-hidden="true"><span class="gift-bow"><i></i><i></i><b></b></span><span class="gift-lid"></span><span class="gift-base"></span></span>
                 <span class="present-hint">Open present</span>
               </button>
               <button class="shake-gift" type="button" aria-label="Shake Apple AirPods 5">
-                <span aria-hidden="true">↔</span><span>Shake</span>
+                <span>Shake</span>
               </button>
             </div>
             <div class="gift-content" id="gift-apple-airpods-5" hidden>
@@ -451,12 +574,11 @@
           <article class="present-card main-present" data-present data-gift-name="Squier Affinity Telecaster" data-sound="strings">
             <div class="present-controls">
               <button class="present-open" type="button" aria-expanded="false" aria-controls="gift-squier-affinity-telecaster" aria-label="Open present: Squier Affinity Telecaster">
-                <span class="present-number">Present 3 of 5</span>
                 <span class="gift-box" aria-hidden="true"><span class="gift-bow"><i></i><i></i><b></b></span><span class="gift-lid"></span><span class="gift-base"></span></span>
                 <span class="present-hint">Open present</span>
               </button>
               <button class="shake-gift" type="button" aria-label="Shake Squier Affinity Telecaster">
-                <span aria-hidden="true">↔</span><span>Shake</span>
+                <span>Shake</span>
               </button>
             </div>
             <div class="gift-content" id="gift-squier-affinity-telecaster" hidden>
@@ -468,12 +590,11 @@
           <article class="present-card main-present" data-present data-gift-name="The Legend of Zelda: Ocarina of Time for Nintendo Switch 2" data-sound="cartridge">
             <div class="present-controls">
               <button class="present-open" type="button" aria-expanded="false" aria-controls="gift-the-legend-of-zelda-ocarina-of-time-for-nintendo-switch-2" aria-label="Open present: The Legend of Zelda: Ocarina of Time for Nintendo Switch 2">
-                <span class="present-number">Present 4 of 5</span>
                 <span class="gift-box" aria-hidden="true"><span class="gift-bow"><i></i><i></i><b></b></span><span class="gift-lid"></span><span class="gift-base"></span></span>
                 <span class="present-hint">Open present</span>
               </button>
               <button class="shake-gift" type="button" aria-label="Shake The Legend of Zelda: Ocarina of Time for Nintendo Switch 2">
-                <span aria-hidden="true">↔</span><span>Shake</span>
+                <span>Shake</span>
               </button>
             </div>
             <div class="gift-content" id="gift-the-legend-of-zelda-ocarina-of-time-for-nintendo-switch-2" hidden>
@@ -485,12 +606,11 @@
           <article class="present-card main-present" data-present data-gift-name="Kiwi Ears Cadenza II" data-sound="earbuds">
             <div class="present-controls">
               <button class="present-open" type="button" aria-expanded="false" aria-controls="gift-kiwi-ears-cadenza-ii" aria-label="Open present: Kiwi Ears Cadenza II">
-                <span class="present-number">Present 5 of 5</span>
                 <span class="gift-box" aria-hidden="true"><span class="gift-bow"><i></i><i></i><b></b></span><span class="gift-lid"></span><span class="gift-base"></span></span>
                 <span class="present-hint">Open present</span>
               </button>
               <button class="shake-gift" type="button" aria-label="Shake Kiwi Ears Cadenza II">
-                <span aria-hidden="true">↔</span><span>Shake</span>
+                <span>Shake</span>
               </button>
             </div>
             <div class="gift-content" id="gift-kiwi-ears-cadenza-ii" hidden>
@@ -503,23 +623,17 @@
         <p class="scroll-hint">Swipe across to see all five presents.</p>
       </section>
 
-      <section class="budget-callout" aria-labelledby="budget-title">
-        <div><h2 id="budget-title">Want a smaller gift?</h2><p>Three extra surprises are tucked under the tree in cool winter colors.</p></div>
-        <button class="budget-toggle" id="budgetToggle" type="button" aria-expanded="false" aria-controls="budgetSection"><span>See the smaller presents</span><span aria-hidden="true">＋</span></button>
-      </section>
-
       <section class="budget-section" id="budgetSection" aria-labelledby="budget-gifts-title" hidden>
         <div class="section-head"><div><h2 id="budget-gifts-title">Three smaller presents</h2><p>These gifts have cool winter wrapping. Shake or open one.</p></div></div>
         <div class="present-track small-line" role="group" aria-label="Three smaller wrapped gifts">
           <article class="present-card small-present" data-present data-gift-name="Plain bamboo skateboard deck" data-sound="wood">
             <div class="present-controls">
               <button class="present-open" type="button" aria-expanded="false" aria-controls="gift-plain-bamboo-skateboard-deck" aria-label="Open present: Plain bamboo skateboard deck">
-                <span class="present-number">Smaller present 1 of 3</span>
                 <span class="gift-box" aria-hidden="true"><span class="gift-bow"><i></i><i></i><b></b></span><span class="gift-lid"></span><span class="gift-base"></span></span>
                 <span class="present-hint">Open present</span>
               </button>
               <button class="shake-gift" type="button" aria-label="Shake Plain bamboo skateboard deck">
-                <span aria-hidden="true">↔</span><span>Shake</span>
+                <span>Shake</span>
               </button>
             </div>
             <div class="gift-content" id="gift-plain-bamboo-skateboard-deck" hidden>
@@ -531,12 +645,11 @@
           <article class="present-card small-present" data-present data-gift-name="iFixit 64-piece driver kit" data-sound="metal">
             <div class="present-controls">
               <button class="present-open" type="button" aria-expanded="false" aria-controls="gift-ifixit-64-piece-driver-kit" aria-label="Open present: iFixit 64-piece driver kit">
-                <span class="present-number">Smaller present 2 of 3</span>
                 <span class="gift-box" aria-hidden="true"><span class="gift-bow"><i></i><i></i><b></b></span><span class="gift-lid"></span><span class="gift-base"></span></span>
                 <span class="present-hint">Open present</span>
               </button>
               <button class="shake-gift" type="button" aria-label="Shake iFixit 64-piece driver kit">
-                <span aria-hidden="true">↔</span><span>Shake</span>
+                <span>Shake</span>
               </button>
             </div>
             <div class="gift-content" id="gift-ifixit-64-piece-driver-kit" hidden>
@@ -548,12 +661,11 @@
           <article class="present-card small-present" data-present data-gift-name="LEGO Speed Champions Ferrari F40" data-sound="bricks">
             <div class="present-controls">
               <button class="present-open" type="button" aria-expanded="false" aria-controls="gift-lego-speed-champions-ferrari-f40" aria-label="Open present: LEGO Speed Champions Ferrari F40">
-                <span class="present-number">Smaller present 3 of 3</span>
                 <span class="gift-box" aria-hidden="true"><span class="gift-bow"><i></i><i></i><b></b></span><span class="gift-lid"></span><span class="gift-base"></span></span>
                 <span class="present-hint">Open present</span>
               </button>
               <button class="shake-gift" type="button" aria-label="Shake LEGO Speed Champions Ferrari F40">
-                <span aria-hidden="true">↔</span><span>Shake</span>
+                <span>Shake</span>
               </button>
             </div>
             <div class="gift-content" id="gift-lego-speed-champions-ferrari-f40" hidden>
@@ -573,17 +685,30 @@
 (function(){
   var budgetToggle=document.getElementById('budgetToggle');
   var budgetSection=document.getElementById('budgetSection');
-  var budgetLabel=budgetToggle.querySelector('span:first-child');
-  var budgetSymbol=budgetToggle.querySelector('span:last-child');
+  var mainTrack=document.querySelector('.main-line');
+  var mainHint=mainTrack.nextElementSibling;
+  var smallHint=budgetSection.querySelector('.scroll-hint');
+  var wishlist=document.querySelector('.wishlist-section');
+  var title=document.getElementById('main-gifts-title');
+  var description=wishlist.querySelector('.section-head p');
   var audioContext=null;
 
+  wishlist.insertBefore(budgetSection,mainHint);
   budgetToggle.addEventListener('click',function(){
-    var opening=budgetSection.hidden;
-    budgetSection.hidden=!opening;
-    budgetToggle.setAttribute('aria-expanded',String(opening));
-    budgetLabel.textContent=opening?'Hide the smaller presents':'See the smaller presents';
-    budgetSymbol.textContent=opening?'−':'＋';
-    if(opening)window.setTimeout(function(){budgetSection.scrollIntoView({behavior:'smooth',block:'start'});},30);
+    var showingSmall=!mainTrack.hidden;
+    mainTrack.hidden=showingSmall;
+    mainHint.hidden=showingSmall;
+    budgetSection.hidden=!showingSmall;
+    title.textContent=showingSmall?'Three smaller presents':'Five presents under the tree';
+    description.textContent=showingSmall?'Three smaller surprises, wrapped in winter colors.':'Open a gift to see what’s inside. Shake one to hear what might be in it.';
+    budgetToggle.setAttribute('aria-pressed',String(showingSmall));
+    budgetToggle.setAttribute('aria-label',showingSmall?'Show the five main presents':'Show the three smaller presents');
+    budgetToggle.title=showingSmall?'Show main presents':'Show smaller presents';
+    var visibleTrack=showingSmall?budgetSection.querySelector('.small-line'):mainTrack;
+    visibleTrack.classList.remove('set-arrive');
+    void visibleTrack.offsetWidth;
+    visibleTrack.classList.add('set-arrive');
+    window.setTimeout(function(){visibleTrack.classList.remove('set-arrive');},500);
   });
 
   var soundProfiles={
@@ -678,3 +803,4 @@
 </script>
 </body>
 </html>
+
