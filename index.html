@@ -390,6 +390,10 @@
     .gift-switch { display:grid; width:38px; height:38px; place-items:center; border:1px solid rgba(255,255,255,.78); border-radius:50%; background:rgba(255,251,242,.86); color:#244537; cursor:pointer; font-size:1.1rem; box-shadow:0 4px 12px rgba(70,47,29,.11); transition:transform .18s ease,background .18s ease; }
     .gift-switch:hover { transform:translateY(-2px) rotate(-6deg); background:#fff; }
     .gift-switch:focus-visible { outline:3px solid #5384c5; outline-offset:3px; }
+    .music-toggle { display:grid; width:38px; height:38px; place-items:center; border:1px solid rgba(255,255,255,.78); border-radius:50%; background:rgba(255,251,242,.86); color:#244537; cursor:pointer; font-size:1.2rem; font-weight:900; box-shadow:0 4px 12px rgba(70,47,29,.11); transition:transform .18s ease,background .18s ease; }
+    .music-toggle:hover { transform:translateY(-2px); background:#fff; }
+    .music-toggle[aria-pressed="true"] { background:#e8f1df; color:#1c5d3b; }
+    .music-toggle:focus-visible { outline:3px solid #5384c5; outline-offset:3px; }
     .room-main { min-height:0; padding-top:12px; padding-bottom:18px; }
     .room-main .intro { max-width:720px; margin-bottom:2px; padding:10px 20px; border-color:rgba(255,255,255,.72); background:rgba(255,251,242,.8); box-shadow:0 10px 28px rgba(59,41,26,.08); }
     .room-main .intro h1 { white-space:normal; }
@@ -456,6 +460,7 @@
       .site-header { padding:13px 0; }.corner-nav { gap:5px; }
       .corner-nav a { min-height:33px; padding:0 9px; font-size:.72rem; }
       .gift-switch { width:35px; height:35px; font-size:1rem; }
+      .music-toggle { width:35px; height:35px; }
       .room-main { padding-top:12px; padding-bottom:14px; }
       .room-main .intro { width:min(100% - 8px,520px); margin-bottom:0; padding:10px 12px; border-radius:18px; }
       .room-main .intro h1 { font-size:clamp(2rem,8vw,2.8rem); }
@@ -521,6 +526,7 @@
       <nav class="corner-nav" aria-label="Other sections">
         <a href="/math/">Math</a>
         <a href="/Retro_Corner_V0.97.html">Games</a>
+        <button class="music-toggle" id="musicToggle" type="button" aria-label="Play Christmas music" title="Play Christmas music" aria-pressed="false">♪</button>
         <button class="gift-switch" id="budgetToggle" type="button" aria-label="Show the three smaller presents" title="Show smaller presents" aria-pressed="false">🎁</button>
       </nav>
     </header>
@@ -681,9 +687,14 @@
     </main>
     <footer>The Math and Games buttons stay tucked in the corner for a quick visit.</footer>
   </div>
+  <audio id="christmasMusic" autoplay loop preload="none">
+    <source src="/audio/christmas-carols-loop.mp3" type="audio/mpeg">
+  </audio>
   <script>
 (function(){
   var budgetToggle=document.getElementById('budgetToggle');
+  var musicToggle=document.getElementById('musicToggle');
+  var christmasMusic=document.getElementById('christmasMusic');
   var budgetSection=document.getElementById('budgetSection');
   var mainTrack=document.querySelector('.main-line');
   var mainHint=mainTrack.nextElementSibling;
@@ -692,6 +703,22 @@
   var title=document.getElementById('main-gifts-title');
   var description=wishlist.querySelector('.section-head p');
   var audioContext=null;
+
+  function updateMusicControl(){
+    var playing=!christmasMusic.paused;
+    musicToggle.textContent=playing?'♫':'♪';
+    musicToggle.setAttribute('aria-pressed',String(playing));
+    musicToggle.setAttribute('aria-label',playing?'Pause Christmas music':'Play Christmas music');
+    musicToggle.title=playing?'Pause Christmas music':'Play Christmas music';
+  }
+  musicToggle.addEventListener('click',function(){
+    if(christmasMusic.paused){christmasMusic.play().catch(updateMusicControl);}
+    else christmasMusic.pause();
+  });
+  christmasMusic.addEventListener('play',updateMusicControl);
+  christmasMusic.addEventListener('pause',updateMusicControl);
+  christmasMusic.addEventListener('ended',function(){updateMusicControl();christmasMusic.play().catch(updateMusicControl);});
+  christmasMusic.play().catch(updateMusicControl);
 
   wishlist.insertBefore(budgetSection,mainHint);
   budgetToggle.addEventListener('click',function(){
