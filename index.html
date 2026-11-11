@@ -492,6 +492,48 @@
     }
     @media(max-width:360px) { .brand>span:last-child { max-width:none; }.main-line .present-card,.small-line .present-card { flex-basis:124px; min-width:124px; } }
     @media(prefers-reduced-motion:reduce) { .tree-stage *, .present-card *, .present-card::before, .present-card::after { animation-duration:.01ms!important; animation-iteration-count:1!important; transition-duration:.01ms!important; scroll-behavior:auto!important; } }
+    .present-track.main-line,.present-track.small-line { display:grid; align-items:start; overflow:visible; overscroll-behavior:initial; scroll-snap-type:none; }
+    .present-track.main-line { grid-template-columns:repeat(5,minmax(0,1fr)); gap:clamp(3px,1vw,12px); }
+    .present-track.small-line { grid-template-columns:repeat(3,minmax(0,1fr)); gap:clamp(5px,1.2vw,14px); }
+    .present-track .present-card,.present-track .present-card.is-open { width:100%; min-width:0; max-width:100%; flex:none; scroll-snap-align:none; }
+    .present-track .present-card.is-open { border:0; border-radius:12px; background:transparent; box-shadow:none; text-align:center; transition:none; }
+    .main-line + .scroll-hint,.small-line + .scroll-hint { display:none!important; }
+    .opened-summary { display:flex; min-height:154px; flex-direction:column; align-items:center; justify-content:center; gap:7px; padding:7px 2px; }
+    .opened-summary img { width:min(76px,78%); height:78px; object-fit:contain; border-radius:9px; background:rgba(255,255,255,.9); }
+    .opened-summary button { min-height:28px; padding:4px 10px; border:1px solid rgba(255,255,255,.68); border-radius:999px; background:rgba(40,69,51,.86); color:#fff8e8; cursor:pointer; font:inherit; font-size:.68rem; font-weight:850; }
+    .opened-summary button:hover { background:#274a37; }
+    .opened-summary button:focus-visible,.gift-dialog-close:focus-visible { outline:3px solid #5384c5; outline-offset:2px; }
+    .gift-dialog { position:fixed; width:min(410px,calc(100vw - 28px)); max-width:none; max-height:min(86vh,760px); margin:auto; padding:42px 0 0; overflow:auto; border:1px solid rgba(255,255,255,.9); border-radius:22px; background:#fffaf0; color:#183a30; box-shadow:0 24px 70px rgba(24,35,27,.35); }
+    .gift-dialog::backdrop { background:rgba(24,35,27,.55); backdrop-filter:blur(3px); }
+    .gift-dialog-close { position:absolute; z-index:2; top:9px; right:11px; display:grid; width:31px; height:31px; place-items:center; border:1px solid #e4e0d4; border-radius:50%; background:#fff; color:#244537; cursor:pointer; font:inherit; font-size:1.2rem; line-height:1; }
+    .gift-dialog .gift-content { display:block; padding:0 0 5px; }
+    .gift-dialog .gift-content .product-art { min-height:190px; }
+    .gift-dialog .gift-content .product-art img { height:150px; }
+    .gift-dialog .gift-content .gift-copy { padding:16px 20px 2px; }
+    .gift-dialog .gift-content .gift-copy h3 { font-size:1.12rem; }
+    .gift-dialog .gift-content .gift-copy p { font-size:.9rem; line-height:1.55; }
+    .gift-dialog .gift-content .shop-link { margin:0 20px 18px; font-size:.82rem; }
+    @media(max-width:760px) {
+      .main-line.present-track { gap:4px; padding-right:5px; padding-left:5px; }
+      .main-line .present-controls,.main-line .opened-summary { min-height:130px; }
+      .main-line .present-open { min-height:99px; padding:12px 1px 4px; gap:2px; }
+      .main-line .present-hint { font-size:clamp(.48rem,1.8vw,.66rem); line-height:1.05; }
+      .main-line .shake-gift { min-height:23px; padding:2px 4px; font-size:clamp(.5rem,1.6vw,.62rem); }
+      .main-line .opened-summary { gap:4px; }
+      .main-line .opened-summary img { width:min(60px,82%); height:62px; }
+      .main-line .opened-summary button { min-height:23px; padding:3px 7px; font-size:.58rem; }
+    }
+    @media(max-width:560px) { .main-line .gift-box { transform:scale(.82); transform-origin:center bottom; } }
+    @media(max-width:420px) { .main-line .gift-box { transform:scale(.62); } }
+    @media(max-width:360px) {
+      .main-line.present-track { gap:2px; padding-right:2px; padding-left:2px; }
+      .main-line .gift-box { transform:scale(.52); }
+      .main-line .present-hint { font-size:.48rem; }
+      .main-line .shake-gift { padding-right:2px; padding-left:2px; font-size:.5rem; }
+      .main-line .opened-summary img { width:40px; height:46px; }
+      .main-line .opened-summary button { min-height:21px; padding:2px 5px; font-size:.5rem; }
+    }
+    @media(max-width:340px) { .main-line .gift-box { transform:scale(.46); } }
   </style>
 </head>
 <body>
@@ -687,6 +729,7 @@
     </main>
     <footer>The Math and Games buttons stay tucked in the corner for a quick visit.</footer>
   </div>
+  <dialog id="giftDialog" class="gift-dialog" aria-labelledby="giftDialogTitle"></dialog>
   <audio id="christmasMusic" autoplay loop preload="none">
     <source src="/audio/christmas-carols-loop.mp3" type="audio/mpeg">
   </audio>
@@ -695,6 +738,7 @@
   var budgetToggle=document.getElementById('budgetToggle');
   var musicToggle=document.getElementById('musicToggle');
   var christmasMusic=document.getElementById('christmasMusic');
+  var giftDialog=document.getElementById('giftDialog');
   var budgetSection=document.getElementById('budgetSection');
   var mainTrack=document.querySelector('.main-line');
   var mainHint=mainTrack.nextElementSibling;
@@ -703,6 +747,32 @@
   var title=document.getElementById('main-gifts-title');
   var description=wishlist.querySelector('.section-head p');
   var audioContext=null;
+  var lastGiftViewButton=null;
+
+  try{christmasMusic.volume=.4;}catch(error){}
+
+  function openGiftDetails(reveal,returnFocus){
+    var content=reveal.cloneNode(true);
+    content.hidden=false;
+    content.removeAttribute('id');
+    content.querySelectorAll('[id]').forEach(function(element){element.removeAttribute('id');});
+    var heading=content.querySelector('h3');
+    if(heading)heading.id='giftDialogTitle';
+    var closeButton=document.createElement('button');
+    closeButton.className='gift-dialog-close';
+    closeButton.type='button';
+    closeButton.setAttribute('aria-label','Close gift details');
+    closeButton.textContent='×';
+    closeButton.addEventListener('click',function(){giftDialog.close();});
+    giftDialog.replaceChildren(closeButton,content);
+    lastGiftViewButton=returnFocus;
+    giftDialog.showModal();
+    closeButton.focus();
+  }
+
+  giftDialog.addEventListener('close',function(){
+    if(lastGiftViewButton)lastGiftViewButton.focus();
+  });
 
   function updateMusicControl(){
     var playing=!christmasMusic.paused;
@@ -806,11 +876,20 @@
       openButton.setAttribute('aria-expanded','true');
       window.setTimeout(function(){
         controls.hidden=true;
-        reveal.hidden=false;
         card.classList.remove('is-opening');
         card.classList.add('is-open');
-        var heading=reveal.querySelector('h3');
-        if(heading){heading.setAttribute('tabindex','-1');heading.focus({preventScroll:true});}
+        var summary=document.createElement('div');
+        summary.className='opened-summary';
+        var image=reveal.querySelector('.product-art img');
+        if(image){var thumbnail=image.cloneNode(false);thumbnail.alt='';thumbnail.removeAttribute('id');summary.appendChild(thumbnail);}
+        var viewButton=document.createElement('button');
+        viewButton.type='button';
+        viewButton.textContent='View';
+        viewButton.setAttribute('aria-label','View opened present: '+name);
+        viewButton.addEventListener('click',function(){openGiftDetails(reveal,viewButton);});
+        summary.appendChild(viewButton);
+        card.appendChild(summary);
+        openGiftDetails(reveal,viewButton);
       },780);
     });
     shakeButton.addEventListener('click',function(){
