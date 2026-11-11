@@ -264,13 +264,12 @@
     .wishlist-section .section-head p,.budget-section .section-head p {margin-top:4px;color:#55463a}
     .present-track {display:flex;flex-wrap:nowrap;align-items:flex-start;gap:12px;overflow-x:auto;overscroll-behavior-inline:contain;scroll-snap-type:x mandatory;scrollbar-width:none;padding:12px 4px 18px}
     .present-track::-webkit-scrollbar {display:none}
-    .main-line .present-card {flex:0 0 calc((100% - 48px)/5);min-width:0}
+    .main-line .present-card {flex:0 0 calc((100% - 36px)/4);min-width:0}
     .small-line .present-card {flex:0 0 calc((100% - 24px)/3);min-width:0}
     .present-card {--box:#b43346;--box-deep:#762032;--ribbon:#f6d578;position:relative;min-width:0;overflow:hidden;scroll-snap-align:center;border:0;border-radius:20px;background:transparent;text-align:center}
     .main-line .present-card:nth-child(2){--box:#26734f;--box-deep:#16452f;--ribbon:#f5d77e}
     .main-line .present-card:nth-child(3){--box:#bd6b28;--box-deep:#7b3c1c;--ribbon:#ffe5a1}
     .main-line .present-card:nth-child(4){--box:#2e665e;--box-deep:#17433e;--ribbon:#f4d179}
-    .main-line .present-card:nth-child(5){--box:#a5313c;--box-deep:#711f32;--ribbon:#e7d58f}
     .small-line .present-card:nth-child(1){--box:#586bbb;--box-deep:#303e7b;--ribbon:#ecc2e3}
     .small-line .present-card:nth-child(2){--box:#287f98;--box-deep:#155267;--ribbon:#f3d581}
     .small-line .present-card:nth-child(3){--box:#80599f;--box-deep:#50366d;--ribbon:#ccebe2}
@@ -414,7 +413,7 @@
     .wishlist-section .section-head p { margin-top:3px; color:#574737; font-size:.82rem; }
     .present-track { gap:10px; margin:-2px 0 0; padding:28px 4px 7px; overflow-x:auto; }
     .present-track[hidden] { display:none; }
-    .main-line .present-card { flex:0 0 calc((100% - 40px)/5); }
+    .main-line .present-card { flex:0 0 calc((100% - 30px)/4); }
     .small-line .present-card { flex:0 0 calc((100% - 20px)/3); }
     .present-card { overflow:visible; border-radius:12px; }
     .present-controls { min-height:154px; gap:3px; }
@@ -494,7 +493,7 @@
     @media(prefers-reduced-motion:reduce) { .tree-stage *, .present-card *, .present-card::before, .present-card::after { animation-duration:.01ms!important; animation-iteration-count:1!important; transition-duration:.01ms!important; scroll-behavior:auto!important; } }
     .present-track.main-line,.present-track.small-line { display:grid; align-items:start; overflow:visible; overscroll-behavior:initial; scroll-snap-type:none; }
     .present-track.main-line[hidden],.present-track.small-line[hidden] { display:none!important; }
-    .present-track.main-line { grid-template-columns:repeat(5,minmax(0,1fr)); gap:clamp(3px,1vw,12px); }
+    .present-track.main-line { grid-template-columns:repeat(4,minmax(0,1fr)); gap:clamp(3px,1vw,12px); }
     .present-track.small-line { grid-template-columns:repeat(3,minmax(0,1fr)); gap:clamp(5px,1.2vw,14px); }
     .present-track .present-card,.present-track .present-card.is-open { width:100%; min-width:0; max-width:100%; flex:none; scroll-snap-align:none; }
     .present-track .present-card.is-open { border:0; border-radius:12px; background:transparent; box-shadow:none; text-align:center; transition:none; }
@@ -613,7 +612,7 @@
         <p class="eyebrow">A little holiday wish list</p>
         <h1 id="page-title">Cory’s Christmas List</h1>
         <p class="family-note">If you get this gift, please contact the other family members so no one gets me the same thing :)</p>
-        <p class="intro-copy">Five gifts wait beneath the tree. Open a present or give it a shake.</p>
+        <p class="intro-copy">Four gifts wait beneath the tree. Open a present or give it a shake.</p>
         <div class="lights" aria-hidden="true"><span class="light"></span><span class="light"></span><span class="light"></span><span class="light"></span><span class="light"></span><span class="light"></span><span class="light"></span></div>
       </section>
 
@@ -651,8 +650,8 @@
       </div>
 
       <section class="wishlist-section" aria-labelledby="main-gifts-title">
-        <div class="section-head"><div><h2 id="main-gifts-title">Five presents under the tree</h2><p>Open a gift to see what’s inside. Shake one to hear what might be in it.</p></div></div>
-        <div class="present-track main-line" role="group" aria-label="Five wrapped Christmas presents">
+        <div class="section-head"><div><h2 id="main-gifts-title">Four presents under the tree</h2><p>Open a gift to see what’s inside. Shake one to hear what might be in it.</p></div></div>
+        <div class="present-track main-line" role="group" aria-label="Four wrapped Christmas presents">
           <article class="present-card main-present" data-present data-gift-name="ASUS Prime GeForce RTX 5060" data-sound="electronics">
             <div class="present-controls">
               <button class="present-open" type="button" aria-expanded="false" aria-controls="gift-asus-prime-geforce-rtx-5060" aria-label="Open present: ASUS Prime GeForce RTX 5060">
@@ -717,24 +716,8 @@
               <a class="shop-link" href="https://www.amazon.com/Legend-ZeldaTM-available-Nintendo-Switch-2/dp/B0HJ6F7L6T" target="_blank" rel="noopener noreferrer"><span>See Ocarina of Time for Switch 2</span><span aria-hidden="true">↗</span></a>
             </div>
           </article>
-          <article class="present-card main-present" data-present data-gift-name="Kiwi Ears Cadenza II" data-sound="earbuds">
-            <div class="present-controls">
-              <button class="present-open" type="button" aria-expanded="false" aria-controls="gift-kiwi-ears-cadenza-ii" aria-label="Open present: Kiwi Ears Cadenza II">
-                <span class="gift-box" aria-hidden="true"><span class="gift-bow"><i></i><i></i><b></b></span><span class="gift-lid"></span><span class="gift-base"></span></span>
-                <span class="present-hint">Open present</span>
-              </button>
-              <button class="shake-gift" type="button" aria-label="Shake Kiwi Ears Cadenza II">
-                <span>Shake</span>
-              </button>
-            </div>
-            <div class="gift-content" id="gift-kiwi-ears-cadenza-ii" hidden>
-              <div class="product-art"><span class="gift-ribbon">For clearer audio</span><img src="/images/wishlist/kiwi-ears-cadenza-ii-cutout.png" alt="Kiwi Ears Cadenza II"></div>
-              <div class="gift-copy"><h3>Kiwi Ears Cadenza II</h3><p>I’d like crisper audio when I play guitar with headphones, and clearer in-game sounds for competitive esports.</p></div>
-              <a class="shop-link" href="https://www.amazon.com/Linsoul-Kiwi-Ears-Cadenza-Audiophiles/dp/B0GD5XQ96R?th=1" target="_blank" rel="noopener noreferrer"><span>See the Cadenza II earphones</span><span aria-hidden="true">↗</span></a>
-            </div>
-          </article>
         </div>
-        <p class="scroll-hint">Swipe across to see all five presents.</p>
+        <p class="scroll-hint">See all four presents under the tree.</p>
       </section>
 
       <section class="budget-section" id="budgetSection" aria-labelledby="budget-gifts-title" hidden>
@@ -877,9 +860,9 @@
     budgetSection.hidden=!showingSmall;
     budgetToggle.hidden=showingSmall;
     mainGiftsBack.hidden=!showingSmall;
-    title.textContent=showingSmall?'Three smaller presents':'Five presents under the tree';
+    title.textContent=showingSmall?'Three smaller presents':'Four presents under the tree';
     description.textContent=showingSmall?'Three smaller surprises, wrapped in winter colors.':'Open a gift to see what’s inside. Shake one to hear what might be in it.';
-    introCopy.textContent=showingSmall?'Three smaller gifts wait beneath the tree. Open a present or give it a shake.':'Five gifts wait beneath the tree. Open a present or give it a shake.';
+    introCopy.textContent=showingSmall?'Three smaller gifts wait beneath the tree. Open a present or give it a shake.':'Four gifts wait beneath the tree. Open a present or give it a shake.';
     budgetToggle.setAttribute('aria-pressed',String(showingSmall));
     mainGiftsBack.setAttribute('aria-pressed',String(!showingSmall));
     var visibleTrack=showingSmall?budgetSection.querySelector('.small-line'):mainTrack;
@@ -896,7 +879,6 @@
     plastic:{filter:'highpass',cutoff:1250,tone:980,wave:'sine',hits:2,gap:.11,noise:.14,decay:.075},
     strings:{filter:'bandpass',cutoff:1150,tone:392,wave:'triangle',hits:3,gap:.14,noise:.095,decay:.24},
     cartridge:{filter:'bandpass',cutoff:900,tone:520,wave:'square',hits:2,gap:.16,noise:.15,decay:.09},
-    earbuds:{filter:'highpass',cutoff:1850,tone:760,wave:'sine',hits:3,gap:.085,noise:.11,decay:.07},
     wood:{filter:'lowpass',cutoff:430,tone:104,wave:'triangle',hits:2,gap:.18,noise:.23,decay:.13},
     metal:{filter:'highpass',cutoff:2100,tone:1460,wave:'sine',hits:4,gap:.07,noise:.12,decay:.2},
     bricks:{filter:'bandpass',cutoff:1450,tone:610,wave:'square',hits:4,gap:.075,noise:.17,decay:.085}
