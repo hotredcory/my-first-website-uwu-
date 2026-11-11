@@ -549,16 +549,27 @@
     .product-art img,.opened-summary img { background:transparent!important; border-radius:0!important; filter:drop-shadow(0 8px 7px rgba(46,34,24,.18)); }
     .gift-product-ocarina img { mix-blend-mode:multiply; }
     .opened-summary { background:transparent; }
-    .gift-dialog { width:min(640px,calc(100vw - 20px)); max-height:min(94vh,920px); }
-    .gift-dialog .gift-content .product-art { min-height:330px; padding:20px 14px 12px; cursor:pointer; }
-    .gift-dialog .gift-content .product-art img { width:min(100%,560px); height:300px!important; }
+    .gift-dialog { width:min(760px,calc(100vw - 20px)); max-height:min(94vh,920px); }
+    .gift-dialog .gift-content .product-art { min-height:380px; padding:20px 14px 12px; cursor:pointer; }
+    .gift-dialog .gift-content .product-art img { width:min(100%,680px); height:350px!important; }
     .gift-dialog .gift-content .gift-copy { cursor:pointer; }
-    .gift-dialog .gift-content .gift-product-rtx { min-height:350px; }
-    .gift-dialog .gift-content .gift-product-rtx img { width:min(100%,580px); height:320px!important; }
-    .gift-dialog .gift-content .gift-product-telecaster { min-height:470px; }
-    .gift-dialog .gift-content .gift-product-telecaster img { width:min(100%,380px); height:440px!important; }
-    .gift-dialog .gift-content .gift-product-ocarina { min-height:400px; }
-    .gift-dialog .gift-content .gift-product-ocarina img { width:min(100%,360px); height:370px!important; }
+    .gift-dialog .gift-content .gift-product-rtx { min-height:410px; }
+    .gift-dialog .gift-content .gift-product-rtx img { width:min(100%,700px); height:380px!important; }
+    .gift-dialog .gift-content .gift-product-telecaster { min-height:540px; }
+    .gift-dialog .gift-content .gift-product-telecaster img { width:min(100%,400px); height:500px!important; }
+    .gift-dialog .gift-content .gift-product-ocarina { min-height:460px; }
+    .gift-dialog .gift-content .gift-product-ocarina img { width:min(100%,380px); height:440px!important; }
+    @media(max-width:560px) {
+      .gift-dialog { width:min(520px,calc(100vw - 20px)); }
+      .gift-dialog .gift-content .product-art { min-height:300px; }
+      .gift-dialog .gift-content .product-art img { height:280px!important; }
+      .gift-dialog .gift-content .gift-product-rtx { min-height:340px; }
+      .gift-dialog .gift-content .gift-product-rtx img { height:320px!important; }
+      .gift-dialog .gift-content .gift-product-telecaster { min-height:440px; }
+      .gift-dialog .gift-content .gift-product-telecaster img { width:min(100%,320px); height:410px!important; }
+      .gift-dialog .gift-content .gift-product-ocarina { min-height:390px; }
+      .gift-dialog .gift-content .gift-product-ocarina img { height:370px!important; }
+    }
     @media(max-width:560px) { .family-note { width:100%; border-radius:14px; font-size:.75rem; } .gift-set-switcher { margin:8px auto 10px; } }
   </style>
 </head>
