@@ -534,6 +534,18 @@
       .main-line .opened-summary button { min-height:21px; padding:2px 5px; font-size:.5rem; }
     }
     @media(max-width:340px) { .main-line .gift-box { transform:scale(.46); } }
+    .family-note { margin:8px auto 0; padding:8px 13px; width:fit-content; max-width:100%; border:1px solid rgba(255,255,255,.75); border-radius:999px; background:rgba(255,249,231,.82); color:#69412e; font-size:.82rem; line-height:1.4; box-shadow:0 4px 14px rgba(59,41,26,.07); }
+    .gift-set-switcher { display:flex; justify-content:center; gap:9px; margin:12px auto 13px; }
+    .gift-set-switcher button { min-height:40px; padding:8px 16px; border:1px solid rgba(255,255,255,.82); border-radius:999px; background:linear-gradient(135deg,#fff3cf,#f8dfaa); color:#623d24; box-shadow:0 5px 16px rgba(74,46,24,.16); cursor:pointer; font:inherit; font-size:.83rem; font-weight:900; transition:transform .18s ease,box-shadow .18s ease; }
+    .gift-set-switcher button:hover { transform:translateY(-2px); box-shadow:0 8px 20px rgba(74,46,24,.2); }
+    .gift-set-switcher button:focus-visible { outline:3px solid #5384c5; outline-offset:3px; }
+    .gift-set-switcher [hidden] { display:none; }
+    .gift-content .product-art,.gift-dialog .gift-content .product-art { background:transparent!important; }
+    .product-art::before,.product-art::after { content:none!important; }
+    .product-art img,.opened-summary img { background:transparent!important; border-radius:0!important; filter:drop-shadow(0 8px 7px rgba(46,34,24,.18)); }
+    .gift-product-ocarina img { mix-blend-mode:multiply; }
+    .opened-summary { background:transparent; }
+    @media(max-width:560px) { .family-note { width:100%; border-radius:14px; font-size:.75rem; } .gift-set-switcher { margin:8px auto 10px; } }
   </style>
 </head>
 <body>
@@ -569,19 +581,23 @@
         <a href="/math/">Math</a>
         <a href="/Retro_Corner_V0.97.html">Games</a>
         <button class="music-toggle" id="musicToggle" type="button" aria-label="Play Christmas music" title="Play Christmas music" aria-pressed="false">♪</button>
-        <button class="gift-switch" id="budgetToggle" type="button" aria-label="Show the three smaller presents" title="Show smaller presents" aria-pressed="false">🎁</button>
       </nav>
     </header>
     <main id="main-content" class="room-main">
       <section class="intro" aria-labelledby="page-title">
         <p class="eyebrow">A little holiday wish list</p>
         <h1 id="page-title">Cory’s Christmas List</h1>
+        <p class="family-note">If you get this gift, please contact the other family members so no one gets me the same thing :)</p>
         <p class="intro-copy">Five gifts wait beneath the tree. Open a present or give it a shake.</p>
         <div class="lights" aria-hidden="true"><span class="light"></span><span class="light"></span><span class="light"></span><span class="light"></span><span class="light"></span><span class="light"></span><span class="light"></span></div>
       </section>
 
       <div class="tree-stage" aria-hidden="true">
         <div class="christmas-tree"><span class="tree-star">★</span><span class="tree-layer tree-layer-one"></span><span class="tree-layer tree-layer-two"></span><span class="tree-layer tree-layer-three"></span><span class="tree-lights"></span><span class="tree-trunk"></span></div>
+      </div>
+      <div class="gift-set-switcher" aria-label="Choose a gift list">
+        <button id="budgetToggle" type="button" aria-pressed="false">🎁 Too expensive? See three smaller gifts</button>
+        <button id="mainGiftsBack" type="button" hidden>🎄 Back to the five main presents</button>
       </div>
 
       <section class="wishlist-section" aria-labelledby="main-gifts-title">
@@ -598,7 +614,7 @@
               </button>
             </div>
             <div class="gift-content" id="gift-asus-prime-geforce-rtx-5060" hidden>
-              <div class="product-art"><span class="gift-ribbon">For my PC</span><img src="/images/wishlist/rtx-5060.webp" alt="ASUS Prime GeForce RTX 5060"></div>
+              <div class="product-art"><span class="gift-ribbon">For my PC</span><img src="/images/wishlist/rtx-5060-cutout.png" alt="ASUS Prime GeForce RTX 5060"></div>
               <div class="gift-copy"><h3>ASUS Prime GeForce RTX 5060</h3><p>My RTX 3070 is getting older, and I’m trading it for a PS5. A newer graphics card would give me a fresh PC gaming setup.</p></div>
               <a class="shop-link" href="https://www.amazon.com/ASUS-SFF-Ready-Graphics-2-5-Slot-Axial-tech/dp/B0F76KGH6B?th=1" target="_blank" rel="noopener noreferrer"><span>See the exact graphics card</span><span aria-hidden="true">↗</span></a>
             </div>
@@ -614,7 +630,7 @@
               </button>
             </div>
             <div class="gift-content" id="gift-apple-airpods-5" hidden>
-              <div class="product-art"><span class="gift-ribbon">Wireless charging case</span><img src="/images/wishlist/airpods-5-earbuds.jpg" alt="Apple AirPods 5"></div>
+              <div class="product-art"><span class="gift-ribbon">Wireless charging case</span><img src="/images/wishlist/airpods-5-earbuds-cutout.png" alt="Apple AirPods 5"></div>
               <div class="gift-copy"><h3>Apple AirPods 5</h3><p>I lost one of my old AirPods, so having a full new pair would be great. This is the version with the wireless charging case.</p></div>
               <a class="shop-link" href="https://www.amazon.com/Apple-Cancellation-Wireless-Personalized-Translation/dp/B0HJB76H2V?s=electronics&amp;th=1" target="_blank" rel="noopener noreferrer"><span>See the AirPods with wireless case</span><span aria-hidden="true">↗</span></a>
             </div>
@@ -630,7 +646,7 @@
               </button>
             </div>
             <div class="gift-content" id="gift-squier-affinity-telecaster" hidden>
-              <div class="product-art"><span class="gift-ribbon">For playing music</span><img src="/images/wishlist/squier-affinity-telecaster.jpg" alt="Squier Affinity Telecaster"></div>
+              <div class="product-art"><span class="gift-ribbon">For playing music</span><img src="/images/wishlist/squier-affinity-telecaster-cutout.png" alt="Squier Affinity Telecaster"></div>
               <div class="gift-copy"><h3>Squier Affinity Telecaster</h3><p>My current guitar’s amp jack is broken, and I’d love a fresh Telecaster to keep practicing and explore a different sound.</p></div>
               <a class="shop-link" href="https://www.amazon.com/Fender-Squier-Affinity-Telecaster-Electric/dp/B09R715B4P?th=1" target="_blank" rel="noopener noreferrer"><span>See the Affinity Telecaster</span><span aria-hidden="true">↗</span></a>
             </div>
@@ -646,7 +662,7 @@
               </button>
             </div>
             <div class="gift-content" id="gift-the-legend-of-zelda-ocarina-of-time-for-nintendo-switch-2" hidden>
-              <div class="product-art"><span class="gift-ribbon">A Zelda adventure</span><img src="/images/wishlist/ocarina-of-time-switch-2.jpg" alt="The Legend of Zelda: Ocarina of Time for Nintendo Switch 2"></div>
+              <div class="product-art gift-product-ocarina"><span class="gift-ribbon">A Zelda adventure</span><img src="/images/wishlist/ocarina-of-time-switch-2.jpg" alt="The Legend of Zelda: Ocarina of Time for Nintendo Switch 2"></div>
               <div class="gift-copy"><h3>The Legend of Zelda: Ocarina of Time for Nintendo Switch 2</h3><p>I loved exploring Breath of the Wild, and I’m excited to try this new take on the Ocarina of Time classic. With a fun new twist to discover, I’m bound to enjoy exploring Hyrule again on my Switch 2.</p></div>
               <a class="shop-link" href="https://www.amazon.com/Legend-ZeldaTM-available-Nintendo-Switch-2/dp/B0HJ6F7L6T" target="_blank" rel="noopener noreferrer"><span>See Ocarina of Time for Switch 2</span><span aria-hidden="true">↗</span></a>
             </div>
@@ -662,7 +678,7 @@
               </button>
             </div>
             <div class="gift-content" id="gift-kiwi-ears-cadenza-ii" hidden>
-              <div class="product-art"><span class="gift-ribbon">For clearer audio</span><img src="/images/wishlist/kiwi-ears-cadenza-ii.jpg" alt="Kiwi Ears Cadenza II"></div>
+              <div class="product-art"><span class="gift-ribbon">For clearer audio</span><img src="/images/wishlist/kiwi-ears-cadenza-ii-cutout.png" alt="Kiwi Ears Cadenza II"></div>
               <div class="gift-copy"><h3>Kiwi Ears Cadenza II</h3><p>I’d like crisper audio when I play guitar with headphones, and clearer in-game sounds for competitive esports.</p></div>
               <a class="shop-link" href="https://www.amazon.com/Linsoul-Kiwi-Ears-Cadenza-Audiophiles/dp/B0GD5XQ96R?th=1" target="_blank" rel="noopener noreferrer"><span>See the Cadenza II earphones</span><span aria-hidden="true">↗</span></a>
             </div>
@@ -685,7 +701,7 @@
               </button>
             </div>
             <div class="gift-content" id="gift-plain-bamboo-skateboard-deck" hidden>
-              <div class="product-art"><span class="gift-ribbon">Back to skating</span><img src="/images/wishlist/plain-bamboo-skateboard-deck.jpg" alt="Plain bamboo skateboard deck"></div>
+              <div class="product-art"><span class="gift-ribbon">Back to skating</span><img src="/images/wishlist/plain-bamboo-skateboard-deck-cutout.png" alt="Plain bamboo skateboard deck"></div>
               <div class="gift-copy"><h3>Plain bamboo skateboard deck</h3><p>My current board has razor tail and is hard to skate. A fresh, simple deck would help me get back to riding.</p></div>
               <a class="shop-link" href="https://www.amazon.com/Bamboo-Skateboards-Blank-Skateboard-Deck/dp/B079Z37LDY?th=1" target="_blank" rel="noopener noreferrer"><span>See the plain bamboo deck</span><span aria-hidden="true">↗</span></a>
             </div>
@@ -701,7 +717,7 @@
               </button>
             </div>
             <div class="gift-content" id="gift-ifixit-64-piece-driver-kit" hidden>
-              <div class="product-art"><span class="gift-ribbon">For tinkering</span><img src="/images/wishlist/ifixit-driver-kit.jpg" alt="iFixit 64-piece driver kit"></div>
+              <div class="product-art"><span class="gift-ribbon">For tinkering</span><img src="/images/wishlist/ifixit-driver-kit-cutout.png" alt="iFixit 64-piece driver kit"></div>
               <div class="gift-copy"><h3>iFixit 64-piece driver kit</h3><p>I like working on electronics. A driver kit would make small fixes and projects a lot easier to handle.</p></div>
               <a class="shop-link" href="https://www.amazon.com/iFixit-IF145-299-4-Driver-Bit-64pc/dp/B0189YWOIO?s=electronics" target="_blank" rel="noopener noreferrer"><span>See the iFixit tool kit</span><span aria-hidden="true">↗</span></a>
             </div>
@@ -717,7 +733,7 @@
               </button>
             </div>
             <div class="gift-content" id="gift-lego-speed-champions-ferrari-f40" hidden>
-              <div class="product-art"><span class="gift-ribbon">A favorite car</span><img src="/images/wishlist/lego-ferrari-f40.jpg" alt="LEGO Speed Champions Ferrari F40"></div>
+              <div class="product-art"><span class="gift-ribbon">A favorite car</span><img src="/images/wishlist/lego-ferrari-f40-cutout.png" alt="LEGO Speed Champions Ferrari F40"></div>
               <div class="gift-copy"><h3>LEGO Speed Champions Ferrari F40</h3><p>The Ferrari F40 is one of my favorite cars. I’d love to build this little version and display it.</p></div>
               <a class="shop-link" href="https://www.amazon.com/LEGO-Champions-Ferrari-Competizione-Building/dp/B07GYV375R" target="_blank" rel="noopener noreferrer"><span>See the Ferrari F40 LEGO set</span><span aria-hidden="true">↗</span></a>
             </div>
@@ -736,6 +752,7 @@
   <script>
 (function(){
   var budgetToggle=document.getElementById('budgetToggle');
+  var mainGiftsBack=document.getElementById('mainGiftsBack');
   var musicToggle=document.getElementById('musicToggle');
   var christmasMusic=document.getElementById('christmasMusic');
   var giftDialog=document.getElementById('giftDialog');
@@ -746,6 +763,7 @@
   var wishlist=document.querySelector('.wishlist-section');
   var title=document.getElementById('main-gifts-title');
   var description=wishlist.querySelector('.section-head p');
+  var introCopy=document.querySelector('.intro-copy');
   var audioContext=null;
   var lastGiftViewButton=null;
 
@@ -789,24 +807,34 @@
   christmasMusic.addEventListener('pause',updateMusicControl);
   christmasMusic.addEventListener('ended',function(){updateMusicControl();christmasMusic.play().catch(updateMusicControl);});
   christmasMusic.play().catch(updateMusicControl);
+  function startMusicFromFirstGesture(){
+    if(christmasMusic.paused)christmasMusic.play().catch(updateMusicControl);
+  }
+  ['pointerdown','keydown','touchstart'].forEach(function(eventName){
+    document.addEventListener(eventName,startMusicFromFirstGesture,{once:true,capture:true,passive:true});
+  });
 
   wishlist.insertBefore(budgetSection,mainHint);
-  budgetToggle.addEventListener('click',function(){
+  function switchGiftSet(){
     var showingSmall=!mainTrack.hidden;
     mainTrack.hidden=showingSmall;
     mainHint.hidden=showingSmall;
     budgetSection.hidden=!showingSmall;
+    budgetToggle.hidden=showingSmall;
+    mainGiftsBack.hidden=!showingSmall;
     title.textContent=showingSmall?'Three smaller presents':'Five presents under the tree';
     description.textContent=showingSmall?'Three smaller surprises, wrapped in winter colors.':'Open a gift to see what’s inside. Shake one to hear what might be in it.';
+    introCopy.textContent=showingSmall?'Three smaller gifts wait beneath the tree. Open a present or give it a shake.':'Five gifts wait beneath the tree. Open a present or give it a shake.';
     budgetToggle.setAttribute('aria-pressed',String(showingSmall));
-    budgetToggle.setAttribute('aria-label',showingSmall?'Show the five main presents':'Show the three smaller presents');
-    budgetToggle.title=showingSmall?'Show main presents':'Show smaller presents';
+    mainGiftsBack.setAttribute('aria-pressed',String(!showingSmall));
     var visibleTrack=showingSmall?budgetSection.querySelector('.small-line'):mainTrack;
     visibleTrack.classList.remove('set-arrive');
     void visibleTrack.offsetWidth;
     visibleTrack.classList.add('set-arrive');
     window.setTimeout(function(){visibleTrack.classList.remove('set-arrive');},500);
-  });
+  }
+  budgetToggle.addEventListener('click',switchGiftSet);
+  mainGiftsBack.addEventListener('click',switchGiftSet);
 
   var soundProfiles={
     electronics:{filter:'lowpass',cutoff:720,tone:138,wave:'triangle',hits:3,gap:.095,noise:.18,decay:.11},
