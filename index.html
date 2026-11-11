@@ -549,9 +549,16 @@
     .product-art img,.opened-summary img { background:transparent!important; border-radius:0!important; filter:drop-shadow(0 8px 7px rgba(46,34,24,.18)); }
     .gift-product-ocarina img { mix-blend-mode:multiply; }
     .opened-summary { background:transparent; }
-    .gift-dialog { width:min(520px,calc(100vw - 20px)); max-height:min(94vh,920px); }
-    .gift-dialog .gift-content .product-art { min-height:276px; padding:20px 14px 12px; }
-    .gift-dialog .gift-content .product-art img { width:min(100%,460px); height:248px!important; }
+    .gift-dialog { width:min(640px,calc(100vw - 20px)); max-height:min(94vh,920px); }
+    .gift-dialog .gift-content .product-art { min-height:330px; padding:20px 14px 12px; cursor:pointer; }
+    .gift-dialog .gift-content .product-art img { width:min(100%,560px); height:300px!important; }
+    .gift-dialog .gift-content .gift-copy { cursor:pointer; }
+    .gift-dialog .gift-content .gift-product-rtx { min-height:350px; }
+    .gift-dialog .gift-content .gift-product-rtx img { width:min(100%,580px); height:320px!important; }
+    .gift-dialog .gift-content .gift-product-telecaster { min-height:470px; }
+    .gift-dialog .gift-content .gift-product-telecaster img { width:min(100%,380px); height:440px!important; }
+    .gift-dialog .gift-content .gift-product-ocarina { min-height:400px; }
+    .gift-dialog .gift-content .gift-product-ocarina img { width:min(100%,360px); height:370px!important; }
     @media(max-width:560px) { .family-note { width:100%; border-radius:14px; font-size:.75rem; } .gift-set-switcher { margin:8px auto 10px; } }
   </style>
 </head>
@@ -646,7 +653,7 @@
               </button>
             </div>
             <div class="gift-content" id="gift-asus-prime-geforce-rtx-5060" hidden>
-              <div class="product-art"><span class="gift-ribbon">For my PC</span><img src="/images/wishlist/rtx-5060-cutout.png" alt="ASUS Prime GeForce RTX 5060"></div>
+              <div class="product-art gift-product-rtx"><span class="gift-ribbon">For my PC</span><img src="/images/wishlist/rtx-5060-cutout.png" alt="ASUS Prime GeForce RTX 5060"></div>
               <div class="gift-copy"><h3>ASUS Prime GeForce RTX 5060</h3><p>My RTX 3070 is getting older, and I’m trading it for a PS5. A newer graphics card would give me a fresh PC gaming setup.</p></div>
               <a class="shop-link" href="https://www.amazon.com/ASUS-SFF-Ready-Graphics-2-5-Slot-Axial-tech/dp/B0F76KGH6B?th=1" target="_blank" rel="noopener noreferrer"><span>See the exact graphics card</span><span aria-hidden="true">↗</span></a>
             </div>
@@ -678,7 +685,7 @@
               </button>
             </div>
             <div class="gift-content" id="gift-squier-affinity-telecaster" hidden>
-              <div class="product-art"><span class="gift-ribbon">For playing music</span><img src="/images/wishlist/squier-affinity-telecaster-cutout.png" alt="Squier Affinity Telecaster"></div>
+              <div class="product-art gift-product-telecaster"><span class="gift-ribbon">For playing music</span><img src="/images/wishlist/squier-affinity-telecaster-cutout.png" alt="Squier Affinity Telecaster"></div>
               <div class="gift-copy"><h3>Squier Affinity Telecaster</h3><p>My current guitar’s amp jack is broken, and I’d love a fresh Telecaster to keep practicing and explore a different sound.</p></div>
               <a class="shop-link" href="https://www.amazon.com/Fender-Squier-Affinity-Telecaster-Electric/dp/B09R715B4P?th=1" target="_blank" rel="noopener noreferrer"><span>See the Affinity Telecaster</span><span aria-hidden="true">↗</span></a>
             </div>
@@ -822,6 +829,11 @@
 
   giftDialog.addEventListener('close',function(){
     if(lastGiftViewButton)lastGiftViewButton.focus();
+  });
+  giftDialog.addEventListener('click',function(event){
+    if(event.target===giftDialog){giftDialog.close();return;}
+    if(event.target.closest('.gift-dialog-close,.shop-link'))return;
+    if(event.target.closest('.gift-content'))giftDialog.close();
   });
 
   function updateMusicControl(){
